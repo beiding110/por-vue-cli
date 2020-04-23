@@ -2,6 +2,10 @@
 
 > the new cli with node 10
 
+集成了appjs、常用组件库、element-ui、jquery、babel、sentry等；
+
+常用配置修改；
+
 ## Build Setup
 
 ``` bash
