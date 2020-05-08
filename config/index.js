@@ -6,6 +6,7 @@ const path = require('path')
 
 module.exports = {
     element: true,
+    mint: true,
     dev: {
 
         // Paths
