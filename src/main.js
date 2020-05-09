@@ -13,13 +13,16 @@ import '@/js/app-supply.js'
 
 import '@/js/preset.js'
 
+import '@/css/zh-common.css'
+import '@/css/common.scss'
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  store,
-  components: { App },
-  template: '<App/>'
+    el: '#app',
+    router,
+    store,
+    components: { App },
+    template: '<App/>'
 })

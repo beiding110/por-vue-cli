@@ -61,20 +61,14 @@
  * imgToBase64 图片转base64编码
  * inheritPrototype 原型链继承
  */
-
 import Vue from 'vue'
-import { MessageBox, Toast } from 'mint-ui'
+import './MessageBox'
 
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 		typeof define === 'function' && define.amd ? define(factory) :
 		(global.mainVue = factory(window));
 }(this, (function (owner) {
-	//工具组件bus
-	window.$bus = new Vue({
-
-	});
-
     Vue.prototype.$ajax = function(obj) {
         AjaxRequest.call(this, obj);
     };
@@ -151,60 +145,6 @@ import { MessageBox, Toast } from 'mint-ui'
 			}.bind(this),
 			fztype: fztype
 		})
-	}
-
-	/**
-	 * ajax方法，用法同jquery中的$.ajax
-	 * @return {obj} 同$.ajax参数
-	 */
-	owner.ajax = function () {
-		var ajaxData = {
-			type: arguments[0].type || "GET",
-			url: arguments[0].url || "",
-			async: arguments[0].async || "true",
-			data: arguments[0].data || null,
-			dataType: arguments[0].dataType || "text",
-			contentType: arguments[0].contentType || "application/x-www-form-urlencoded",
-			beforeSend: arguments[0].beforeSend || function () {},
-			success: arguments[0].success || function () {},
-			error: arguments[0].error || function () {}
-		};
-		ajaxData.beforeSend();
-		var xhr = createxmlHttpRequest();
-		xhr.responseType = ajaxData.dataType;
-		xhr.open(ajaxData.type, ajaxData.url, ajaxData.async);
-		xhr.setRequestHeader("Content-Type", ajaxData.contentType);
-		xhr.send(convertData(ajaxData.data));
-		xhr.onreadystatechange = function () {
-			if (xhr.readyState == 4) {
-				if (xhr.status == 200) {
-					ajaxData.success(xhr.response);
-				} else {
-					ajaxData.error(xhr);
-				}
-			}
-		}
-	}
-
-	function createxmlHttpRequest() {
-		if (window.ActiveXObject) {
-			return new ActiveXObject("Microsoft.XMLHTTP");
-		} else if (window.XMLHttpRequest) {
-			return new XMLHttpRequest();
-		}
-	}
-
-	function convertData(data) {
-		if (typeof data === 'object') {
-			var convertResult = "";
-			for (var c in data) {
-				convertResult += c + "=" + data[c] + "&";
-			}
-			convertResult = convertResult.substring(0, convertResult.length - 1);
-			return convertResult;
-		} else {
-			return data;
-		}
 	}
 
 	/***************************************
@@ -650,79 +590,6 @@ import { MessageBox, Toast } from 'mint-ui'
 		for (var k in o)
 			if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
 		return fmt;
-	}
-
-    /******************
-	*** MessageBox 消息弹框
-	*** msg 提示信息
-	*** type 消息类型
-	******************/
-	window.ShowMsgBox = function(msg, type, callback) {
-		callback = callback || function () { }
-		if(/iPhone|Android/i.test(window.navigator.userAgent.toLowerCase())){
-			MessageBox.alert(msg, '提示').then(function(a) {
-				callback()
-			});
-		}else {
-			this.$alert(msg, {
-				type: type || "warning",
-				callback: callback,
-				dangerouslyUseHTMLString: true
-			});
-		}
-	}
-
-	/******************
-	*** Notification 消息通知
-	*** msg 提示信息
-	*** type 消息类型
-	******************/
-	window.ShowMsg = function(msg, type) {
-		if(/iPhone|Android/i.test(window.navigator.userAgent.toLowerCase())){
-			Toast({
-				message: msg,
-				iconClass: !!type ? 'icon icon-' + type : ''
-			});
-		}else {
-			this.$notify({
-				message: msg,
-				type: type || "warning"
-			});
-		}
-		//$message({ showClose: true, message: msg, type: type || "warning", duration: 1500 });
-	}
-
-	/**
-	 * confirm确认选择框
-	 * @param  {string} msg  提示信息
-	 * @param  {string} type 提示类型
-	 * @param  {function} cb1  确认回调
-	 * @param  {Function} cb2  取消回调
-	 * @return {null}      无返回值
-	 */
-	window.ShowConfirm = function (msg, type, cb1, cb2) {
-		cb1 = cb1 || function () {};
-		cb2 = cb2 || function () {};
-
-		if(/iPhone|Android/i.test(window.navigator.userAgent.toLowerCase())){
-			MessageBox.confirm(msg, '提示').then(function(a) {
-				cb1()
-			});
-		}else {
-			this.$confirm(msg, '提示', {
-				confirmButtonText: '确定',
-				cancelButtonText: '取消',
-				type: type || 'warning',
-				showClose: false,
-				callback: function (action, instance) {
-					if (action == 'confirm') {
-						cb1();
-					} else {
-						cb2();
-					}
-				}
-			})
-		}
 	}
 
 	//通用方法
