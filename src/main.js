@@ -13,6 +13,7 @@ import '@/js/app-supply.js'
 
 import '@/js/preset.js'
 
+import '@/css/iconfont.css'
 import '@/css/zh-common.css'
 import '@/css/common.scss'
 

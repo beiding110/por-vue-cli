@@ -10,14 +10,16 @@
             </el-form-item>
         </el-form>
         <el-button type="primary" class="btn-login" @click="login">登录</el-button>
+
+        {{$store.getters.user.dwname}}
     </el-card>
 </template>
 
 <script>
 export default {
     data: () => ({
-        loginname: '',
-        pwd: ''
+        loginname: '13473768822',
+        pwd: '123456'
     }),
     methods: {
         /*登录函数*/
@@ -28,7 +30,7 @@ export default {
             } else if (this.pwd == '' || this.pwd == undefined) {
                 ShowMsg('请输入密码', 'error')
             } else {
-                this.$post(this.$store.getters.sysUrl + '/login', {
+                this.$post('/pms/login', {
                     loginname: this.loginname,
                     pwd: this.pwd
                 }, function (data, res) {
@@ -37,7 +39,7 @@ export default {
                     data.user.biglogo = data.biglogo || '';
                     data.user.smalllogo = data.smalllogo || '';
 
-                    // this.$store.commit('user|setState', 'user', data.user)
+                    this.$store.commit('setUser', data.user);
                     // window.location.replace(res.url);
                 })
             }

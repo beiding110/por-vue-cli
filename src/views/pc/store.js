@@ -1,7 +1,6 @@
 export default {
     state: {
-        twUrl: '/pms/teamwork',
-        sysUrl: '/pms'
+        name: 'this is pc`s store name'
     },
     getters: {
 

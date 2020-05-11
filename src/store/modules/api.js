@@ -1,15 +1,13 @@
+import apiMap from '@/api'
+
 export default {
-    state: {
-        user: {
-            name: 'yzh'
-        }
+    state: apiMap,
+    getters: {
+
     },
     mutations: {
         setState: function(state, n){
             mixin(n, state, true);
-        },
-        setUser(state, n) {
-            state.user = n
         }
     }
 }
