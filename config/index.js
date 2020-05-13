@@ -5,8 +5,6 @@
 const path = require('path')
 
 module.exports = {
-    element: true,
-    mint: true,
     dev: {
 
         // Paths
@@ -75,15 +73,5 @@ module.exports = {
         // `npm run build --report`
         // Set to `true` or `false` to always turn it on or off
         bundleAnalyzerReport: process.env.npm_config_report,
-
-        sentry: {
-            dsn: 'https://4efc6c77e7e64921966612b3e3cc4355@sentry.io/5171325',
-            map: {
-                // 要上传的文件夹
-                include: path.join(__dirname, '../dist/static/js/'),
-                // ~/为网站根目录，后续路径须对应source
-                urlPrefix: '~/static/js'
-            }
-        }
     }
 }

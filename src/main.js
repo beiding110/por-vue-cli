@@ -8,6 +8,8 @@ import store from '@/store'
 import Raven from 'raven-js';
 import RavenVue from 'raven-js/plugins/vue';
 
+import '@/js/ajax/index'
+
 import '@/js/app.js'
 import '@/js/app-supply.js'
 

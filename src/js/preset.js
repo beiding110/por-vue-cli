@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import config from '../../config'
+import config from '@/config'
 
 if(config.element) {
     const ElementUI = require('element-ui');
@@ -12,8 +12,8 @@ if(config.mint) {
     Vue.use(Mint);
 };
 if(process.env.NODE_ENV !== 'development' ){
-    if(config.build.sentry) {
-        Raven.config(config.build.sentry.dsn).addPlugin(RavenVue, Vue).install();
+    if(config.sentry) {
+        Raven.config(config.sentry.dsn).addPlugin(RavenVue, Vue).install();
         Vue.config.errorHandler = function(err, vm, info) {
             Raven.captureException(err);
             console.error(err);
