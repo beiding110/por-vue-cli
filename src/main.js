@@ -5,18 +5,21 @@ import App from './App'
 import router from './router'
 import store from '@/store'
 
-import Raven from 'raven-js';
-import RavenVue from 'raven-js/plugins/vue';
-
+//ajax请求
 import '@/js/ajax/index'
 
+//方法库
 import '@/js/app.js'
 import '@/js/app-supply.js'
 
+//配置项预处理
 import '@/js/preset.js'
 
+//图标
 import '@/css/iconfont.css'
+//清除样式
 import '@/css/zh-common.css'
+//项目全局样式
 import '@/css/common.scss'
 
 Vue.config.productionTip = false

@@ -2,22 +2,15 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import guards from './guards'
 
-import pc from '@views/pc/router.js'
+import _ from './tools.js'
 
-Vue.use(Router)
+Vue.use(Router);
+
+var routerArr = [];
+routerArr.push.apply(routerArr, _.init());
 
 var router = new Router({
-    routes: [
-        pc,
-        {
-            path: '/',
-            name: 'HelloWorld',
-            component: () => import(/*webpackChunkName: 'pc'*/ '@/components/HelloWorld'),
-            meta: {
-                title: '惠咨询'
-            },
-        }
-    ]
+    routes: routerArr
 });
 
 guards(router);

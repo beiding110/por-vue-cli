@@ -41,6 +41,8 @@ export default {
 
                     this.$store.commit('setUser', data.user);
                     // window.location.replace(res.url);
+
+                    this.goto('/pc/teamwork/project/list')
                 })
             }
         },

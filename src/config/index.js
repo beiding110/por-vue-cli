@@ -14,4 +14,6 @@ export default {
     },
     element: true,
     mint: true,
+    //element主题 purple / orange / default
+    'element-theme': 'default'
 }

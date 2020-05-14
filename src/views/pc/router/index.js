@@ -1,3 +1,5 @@
+import teamwork from './modules/teamwork/index'
+
 export default {
     path: '/pc',
     component: () => import(/*webpackChunkName: 'pc'*/ '@layout/modules/empty'),
@@ -11,6 +13,7 @@ export default {
             meta: {
                 title: '惠咨询登录'
             }
-        }
+        },
+        teamwork
     ]
 }
