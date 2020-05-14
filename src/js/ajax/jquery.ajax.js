@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import resCheck from './res-check';
 
 Vue.prototype.$ajax = function(obj) {
     AjaxRequest.call(this, obj);
@@ -192,73 +193,4 @@ function AjaxRequest(settings) {
  * @param  {Function} callback 回调函数
  * @return {null}            [description]
  */
- window.ajaxResCheck = function(obj, settings, callback){
-    var that = this;
-    var callback = callback;
-    if(arguments.length == 2){
-        callback = settings;
-    }
-
-    var switchObj = {
-        'v': function() {
-            !!callback && callback(obj.tdata, obj);
-        },
-        'pglist': function() {
-            !!callback && callback(obj);
-        },
-        'valerror': function() {
-            if (!IsNullOrEmpty(obj.msg)) {
-                ShowMsgBox.call(that, obj.msg, "success");
-            };
-        },
-        'login-index': function() {
-            ShowMsgBox.call(that, obj.msg, 'error', function(){
-                sessionStorage.clear();
-                window.top.location.href = (that.$store.state.htmlUrl+"/login.html");
-            });
-        },
-        'jump-url': function () {
-            ShowMsgBox.call(that, obj.msg, 'info', function () {
-                window.top.location.href = (that.$store.state.htmlUrl + obj.url);
-            });
-        },
-        'wechat': function() {
-            var url = obj.url;
-            if(obj.url) {
-                if(/http/.test(url)) {
-                    window.location.href = obj.url;
-                } else {
-                    if(!new RegExp(url).test(window.location.hash))
-                       that.goto(url)
-                }
-            }
-        },
-        'error': function() {
-            if(/(40163)|(40029)/.test(obj.msg)) {
-                var href = window.location.href,
-                    search = window.location.search;
-                window.location.replace(href.replace(search, ''));
-            } else {
-                ShowMsgBox.call(that, obj.msg, 'error', function(){
-                    throw new Error(JSON.stringify(settings));
-                });
-            }
-        }
-        // 'login-openid': function() {
-        // 	that.$get(this.getStore('sysUrl') + '/getuser', function(data) {
-        // 		AjaxRequest.call(this, settings)
-        // 	})
-        // }
-    }
-
-    return !!switchObj[obj.code]
-        ? switchObj[obj.code]()
-        : (/^(throw-)/.test(obj.code)
-            ? (function(){
-                obj.code = obj.code.split('throw-')[1];
-                callback && callback(obj);
-            }())
-            : ShowMsgBox.call(this, obj.msg, 'error', function () {
-                throw new Error('unexpeted ajaxResCheck code\nsettings:'+JSON.stringify(settings) + '\nresponse:' + JSON.stringify(obj));
-            }));
-}
+ window.ajaxResCheck = resCheck

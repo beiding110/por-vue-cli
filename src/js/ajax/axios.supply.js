@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import { MessageBox } from 'element-ui';
 import qs from 'qs';
+import resCheck from './res-check';
 
 /**
  * 判断是否为服务器端
@@ -105,58 +106,9 @@ var mixin = (axios) => {
 };
 
 var resInterceptors = (data, config, headers) => {
-    const consoleString = JSON.stringify({
-        request: config,
-        response: data
-    });
-
-    var switchObj = {
-        v: () => data.tdata,
-        pglist: () => data,
-        valerror: () => {
-            isNode(() => {
-                console.error(consoleString);
-            }, () => {
-                MessageBox({
-                    message: data.msg,
-                    type: 'error'
-                });
-            });
-            return data;
-        },
-        'login-index': () => {
-            isNode(() => {
-                console.warn(consoleString);
-            }, () => {
-                isNode(() => {
-                    redirect('/');
-                }, () => {
-                    MessageBox({
-                        message: data.msg,
-                        type: 'error',
-                        callback: () => {
-                            redirect('/');
-                        }
-                    });
-                });
-            });
-            return data;
-        },
-        error: () => {
-            isNode(() => {
-                console.error(consoleString);
-            }, () => {
-                MessageBox({
-                    message: data.msg,
-                    type: 'error'
-                });
-                throw new Error(JSON.stringify(consoleString));
-            });
-            return data;
-        }
-    };
-
-    return [switchObj[data.code](), data];
+    return resCheck(data, config, (data, res) => {
+        return [data, res]
+    })
 }
 
 export default {

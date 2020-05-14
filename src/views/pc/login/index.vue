@@ -43,8 +43,20 @@ export default {
                     // window.location.replace(res.url);
                 })
             }
+        },
+
+        getDicitonary() {
+            this.$store.dispatch('getDictionary', {
+                key: 'xmlxlist',
+                url: `${this.$store.getters.sysUrl}/dictionary/select/hylx`
+            }).then(() => {
+                console.log(this.$store.getters.dictionary)
+            });
         }
     },
+    mounted() {
+
+    }
 }
 </script>
 

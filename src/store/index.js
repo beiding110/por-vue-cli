@@ -4,9 +4,10 @@ import _ from './tools.js'
 
 import user from './modules/user.js'
 import api from './modules/api.js'
+import dictionary from './modules/dictionary.js'
 
 const {modules, getters} = _.init({
-    modules: [{user}, {api}]
+    modules: [{user}, {api}, {dictionary}]
 });
 
 Vue.use(Vuex)
