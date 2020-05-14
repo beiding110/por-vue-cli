@@ -50,7 +50,7 @@ var ajaxKeyMap = function(type) {
     return [
         ['type', 'method'],
         ['url', 'url'],
-        ['data', (type === 'post' ? 'params' : 'data')],
+        ['data', (type === 'post' ? 'data' : 'params')],
         ['callback', 'callback'],
         ['complete', 'complete'],
         ['fztype', 'fztype'],

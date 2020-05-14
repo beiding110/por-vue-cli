@@ -40,10 +40,28 @@ export default {
                     data.user.smalllogo = data.smalllogo || '';
 
                     this.$store.commit('setUser', data.user);
-                    // window.location.replace(res.url);
 
                     this.goto('/pc/teamwork/project/list')
-                })
+                });
+
+                // this.$ajax({
+                //     type: 'post',
+                //     url: '/pms/login',
+                //     data: {
+                //         loginname: this.loginname,
+                //         pwd: this.pwd
+                //     },
+                //     callback: (data, res) => {
+                //         data.user.avatar = data.avatar || '';
+                //         data.user.maxnum = data.maxnum || '';
+                //         data.user.biglogo = data.biglogo || '';
+                //         data.user.smalllogo = data.smalllogo || '';
+                //
+                //         this.$store.commit('setUser', data.user);
+                //
+                //         this.goto('/pc/teamwork/project/list')
+                //     }
+                // })
             }
         },
 
