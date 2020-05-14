@@ -37,6 +37,15 @@ import Vue from 'vue'
     };
 
     /**
+     * 获取$store.getters中的变量
+     * @param  {key} key 变量关键字
+     * @return {all}     获取到的变量
+     */
+    owner.getGetters = function(key) {
+        return this.$store.getters[key] || false;
+    };
+
+    /**
      * 跳转（有历史记录）
      * @return {null} 无返回值
      */
