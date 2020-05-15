@@ -6,8 +6,9 @@
         <el-button type="warning">warning</el-button>
         <el-button type="danger">danger</el-button>
 
-        <div v-if="$au.isAdmin()">
-            我是管理员
+        <div>
+            <el-button type="danger" v-if="$au.isAdmin()">我是管理员(if)</el-button>
+            <el-button type="danger" v-admin>我是管理员(directive)</el-button>
         </div>
 
         <el-table
