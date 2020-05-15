@@ -6,6 +6,10 @@
         <el-button type="warning">warning</el-button>
         <el-button type="danger">danger</el-button>
 
+        <div v-if="$au.isAdmin()">
+            我是管理员
+        </div>
+
         <el-table
 			:data="tableData"
 			border

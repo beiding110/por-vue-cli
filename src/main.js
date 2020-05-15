@@ -12,6 +12,9 @@ import '@/js/ajax/index'
 import '@/js/app.js'
 import '@/js/app-supply.js'
 
+//权限
+import '@/js/authority'
+
 //配置项预处理
 import '@/js/preset.js'
 

@@ -2,7 +2,7 @@ import teamwork from './modules/teamwork/index'
 
 export default {
     path: '/pc',
-    component: () => import(/*webpackChunkName: 'pc'*/ '@layout/modules/empty'),
+    component: () => import(/*webpackChunkName: 'pc'*/ '@layout/empty'),
     meta: {
         title: '惠咨询'
     },

@@ -1,6 +1,6 @@
 export default {
     path: 'project',
-    component: () => import(/*webpackChunkName: 'tw-project'*/ '@layout/modules/empty'),
+    component: () => import(/*webpackChunkName: 'tw-project'*/ '@layout/empty'),
     children: [
         {
             path: 'list',
