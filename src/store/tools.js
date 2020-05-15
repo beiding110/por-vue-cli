@@ -11,6 +11,14 @@ function mixin(obj, target, state) {
     return target;
 };
 
+// 自动生成getters时，不增加model前缀的目录
+const FILES_IN_MODULES = require.context('./modules', false, /\.js$/);
+const PRE_NAME_EXCEPT = FILES_IN_MODULES.keys().reduce((modules, modulePath) => {
+    const FILE_NAME = modulePath.slice(2, -3);
+    modules.push(FILE_NAME);
+    return modules;
+}, []);
+
 /**
  * 自动生成全局getters
  * @param  {Object} state     state对象
@@ -20,7 +28,13 @@ function mixin(obj, target, state) {
 function autoGetters(state, modelName) {
     var getters = {};
     Object.keys(state).forEach(key => {
-        getters[key] = (state) => state[modelName][key]
+        if(PRE_NAME_EXCEPT.some(item => {
+            return item === modelName
+        })) {
+            getters[key] = (state) => state[modelName][key];
+        } else {
+            getters[`${modelName}_${key}`] = (state) => state[modelName][key];
+        };
     });
     return getters;
 };
