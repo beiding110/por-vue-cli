@@ -14,5 +14,6 @@ js
 |-app           方法库（勿改）
 |-MessageBox    提示框方法文件（勿改）
 |-preset        配置项解析文件（勿改）
+|-storage       storage相关方法（勿改）
 
 ```

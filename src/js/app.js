@@ -9,9 +9,6 @@
  * app.js
  *存放常用方法及对象
  *
- * export
- * mainVue类
- *
  * Vue prototype 拓展
  * $get
  * $post
@@ -63,87 +60,13 @@
  */
 import Vue from 'vue'
 import './MessageBox'
+import storage from './storage'
 
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 		typeof define === 'function' && define.amd ? define(factory) :
-		(global.mainVue = factory(window));
+		(global.pa = factory(window));
 }(this, (function (owner) {
-	//创建mainVue
-	function mainVue(option) {
-		window.$vue = null;
-
-		if (!!option) {
-			this.init(option);
-		}
-	}
-
-	mainVue.prototype = {
-		data: {},
-		methods: {},
-		computed: {},
-		watch: {},
-		created: function () {},
-		mounted: function () {},
-
-		init: function (obj) {
-			var object = !!obj ? obj : this;
-
-			if (!!obj) {
-				object.mounted = object.mounted || function () {};
-				object.created = object.created || function () {};
-			}
-
-			new Vue({
-				el: "#main_con",
-				data: function () {
-					return object.data
-				},
-				computed: object.computed,
-				watch: object.watch,
-				methods: object.methods,
-				mounted: function () {
-					// document.body.style.backgroundImage = 'none';
-					window.$vue = this;
-					object.mounted.call(this);
-				},
-				created: function () {
-					window.$vue = this;
-					formValidateTrans();
-
-					this.loadingController = this.loadingController || false;
-					this.dialogVisible = this.dialogVisible || false;
-					this.searchKey = this.searchKey || '';
-					this.tableData = this.tableData || [];
-
-					object.created.call(this);
-				}
-			});
-		},
-
-		getdata: function (a, b, c, d) {
-			if (arguments.length <= 3) {
-				var a_url = a,
-					a_data_obj = b,
-					success_callback = c || function () {};
-				(function (a1, b1, c1) {
-					AjaxRequest(a1, b1, "get", function (data, res) {
-						c1(data, res);
-					})
-				})(a_url, a_data_obj, success_callback)
-			} else if (arguments.length == 4) {
-				var a_url = a,
-					a_data_obj = b,
-					a_type = c,
-					success_callback = d || function () {};
-				(function (a1, b1, c1, d1) {
-					AjaxRequest(a1, b1, c1, function (data, res) {
-						d1(data, res);
-					})
-				})(a_url, a_data_obj, a_type, success_callback)
-			};
-		}
-	};
 
 	/**
 	 * 验证属性是否存在，为true或''
@@ -646,75 +569,7 @@ import './MessageBox'
 			return hashObj;
 	}
 
-	/**
-	 * 设置storage基方法
-	 * @param  {string} type sessionStorage或localStorage
-	 * @param  {string} key  要取的key
-	 * @return {string|Object}      对应存储的数据
-	 */
-	function getStorage(type, key) {
-		var res = !!key ?
-			window[type][key] ?
-			((/{|}|%7B|%7D|\[|\]|%5B|%5D/.test(window[type][key]) ?
-				JSON.parse(unescape(window[type][key])) :
-				unescape(window[type][key]))) : undefined :
-			window[type];
-		return res || false;
-	}
-	/**
-	 * 获取storage基方法
-	 * @param {string} type  sessionStorage或localStorage
-	 * @param {string|object} key   要设置的key或整个对象
-	 * @param {Object} value 已设置的结果
-	 */
-	function setStorage(type, key, value) {
-		if (typeof key === 'string') {
-			window[type][key] = (typeof value === 'object') ? escape(JSON.stringify(value)) : escape(value);
-		} else if (typeof key === 'object') {
-			Object.keys(key).forEach(function (item) {
-				window[type][item] = (typeof value === 'object') ? escape(JSON.stringify(key[item])) : escape(key[item]);
-			});
-		};
-		return window[type];
-	}
 
-	/**
-	 * 获取localStorage里的数据
-	 * @param  {string} key 待获取的key
-	 * @return {string|Object} 取回的值
-	 */
-	owner.getLocal = function (key) {
-		return getStorage('localStorage', key);
-	}
-
-	/**
-	 * 将值存入localStorage
-	 * @param  {string|Object} key   待存值的key或json对象
-	 * @param  {string|object} value 待存值的value
-	 * @return {object}       存入后localStorage对象
-	 */
-	owner.setLocal = function (key, value) {
-		return setStorage('localStorage', key, value);
-	}
-
-	/**
-	 * 获取sessionStorage里的数据
-	 * @param  {string} key 待获取的key
-	 * @return {string|Object} 取回的值
-	 */
-	owner.getSession = function (key) {
-		return getStorage('sessionStorage', key);
-	}
-
-	/**
-	 * 将值存入sessionStorage
-	 * @param  {string|Object} key   待存值的key或json对象
-	 * @param  {string|object} value 待存值的value
-	 * @return {object}       存入后sessionStorage对象
-	 */
-	owner.setSession = function (key, value) {
-		return setStorage('sessionStorage', key, value);
-	}
 
 	/**
 	 * 在目标ref上生成一个随机id
@@ -1386,21 +1241,7 @@ import './MessageBox'
 		}
 	})()
 
-	return mainVue;
+    owner.mixin(storage, owner);
 
-	//var $vue = new mainVue();
-
-	//$vue.data = {
-
-	//};
-
-	//$vue.methods = {
-
-	//};
-
-	//$vue.created = function () {
-
-	//}
-
-	//main_Vue.init();
+	return owner;
 })))
