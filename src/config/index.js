@@ -15,5 +15,14 @@ export default {
     element: true,
     mint: true,
     //element主题 purple / orange / default
-    'element-theme': 'default'
+    'element-theme': 'default',
+    router: {
+        pc: {
+            'base-name': 'pc',
+            title: '惠咨询'
+        },
+        mobile: {
+            'base-name': 'mobile'
+        }
+    }
 }

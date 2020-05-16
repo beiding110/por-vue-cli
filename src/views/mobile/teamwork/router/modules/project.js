@@ -4,7 +4,7 @@ export default {
     children: [
         {
             path: 'list',
-            component: () => import(/*webpackChunkName: 'tw-project'*/ '@views/pc/teamwork/project/list'),
+            component: () => import(/*webpackChunkName: 'tw-project'*/ '@views/mobile/teamwork/project/list'),
             meta: {
                 title: '项目列表'
             }

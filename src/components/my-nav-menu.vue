@@ -1,31 +1,31 @@
 <template>
     <div class="infinite-sub-menu">
-            <template v-for="childItem in list">
+        <template v-for="childItem in list">
 
-                <template v-if="!!childItem.children">
-                    <el-submenu :index="childItem.id">
-                        <template slot="title">
-                            <i class="iconfont" v-if="childItem.imgpath" v-html="childItem.imgpath"></i>
-                            <span slot="title">{{ childItem.text }}</span>
-                            <el-tag type="info" size="mini" v-if="childItem.disabled=='disabled'">过期</el-tag>
-                        </template>
-
-                        <my-nav-menu :list="childItem.children" :props="props"></my-nav-menu>
-                    </el-submenu>
-                </template>
-                <template v-else>
-                    <el-menu-item :index="childItem.mpageurl">
+            <template v-if="!!childItem.children">
+                <el-submenu :index="childItem.id">
+                    <template slot="title">
                         <i class="iconfont" v-if="childItem.imgpath" v-html="childItem.imgpath"></i>
-                        <template slot="title">
-                            <span>{{ childItem.text }}</span>
-                            <el-tag type="info" size="mini" v-if="childItem.disabled=='disabled'">过期</el-tag>
-                            <el-tag type="danger" size="mini" v-if="!childItem.mpageurl">不可用</el-tag>
-                        </template>
-                    </el-menu-item>
-                </template>
+                        <span slot="title">{{ childItem.text }}</span>
+                        <el-tag type="info" size="mini" v-if="childItem.disabled=='disabled'">过期</el-tag>
+                    </template>
 
+                    <my-nav-menu :list="childItem.children" :props="props"></my-nav-menu>
+                </el-submenu>
             </template>
-        </div>
+            <template v-else>
+                <el-menu-item :index="childItem.mpageurl">
+                    <i class="iconfont" v-if="childItem.imgpath" v-html="childItem.imgpath"></i>
+                    <template slot="title">
+                        <span>{{ childItem.text }}</span>
+                        <el-tag type="info" size="mini" v-if="childItem.disabled=='disabled'">过期</el-tag>
+                        <el-tag type="danger" size="mini" v-if="!childItem.mpageurl">不可用</el-tag>
+                    </template>
+                </el-menu-item>
+            </template>
+
+        </template>
+    </div>
 </template>
 
 <script>

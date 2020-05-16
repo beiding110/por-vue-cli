@@ -1,6 +1,6 @@
 export default {
     state: {
-        
+        name: 'this is teamwork`s store name'
     },
     getters: {
 
