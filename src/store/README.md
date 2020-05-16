@@ -19,3 +19,5 @@ index会根据 `modules中的文件` 和 `views文件夹中的store.js` 文件�
 * `./modules` 中的固有内容的getter `不会加前缀`
 
 * `views中的store.js`生成的getter会自动增加前缀 `包名_`
+
+各个包内store文件应存放在 `包` 内管理；

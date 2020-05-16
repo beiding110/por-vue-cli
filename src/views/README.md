@@ -18,9 +18,9 @@ pc（平台名称，如单一平台则去除该层）
         |-components    包独有组件库（如有）
         |-js            包独有方法（如有）
         |-mixins        包独有mixins文件（如有）
-        |-router        平台独有router文件
+        |-router        包独有router文件
             |-modules       controller对应的子路由
-            |-inxex         平台路由入口
+            |-inxex         包路由入口
 
         ...             各个与后台controller对应的“功能文件夹”
         |-project（功能名称）

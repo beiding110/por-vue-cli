@@ -19,7 +19,7 @@
 |-src           源代码
     |-api               请求头前缀配置
     |-assets            图片等媒体文件
-    |-components        vue_components组件库
+    |-components        vue_components组件库（勿改）
     |-components-sys    项目独有全局引用组件库
     |-config            前端项目配置
     |-css               全局样式
