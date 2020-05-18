@@ -57,6 +57,7 @@
  * downloader 下载文件
  * imgToBase64 图片转base64编码
  * inheritPrototype 原型链继承
+ * getType 获取变量类型
  */
 import Vue from 'vue'
 import './MessageBox'
@@ -1240,6 +1241,15 @@ import storage from './storage'
 			}
 		}
 	})()
+
+    /**
+ * 获取变量类型
+ * @param  {All} obj 待获取类型的变量
+ * @return {String}     变量类型
+ */
+    owner.getType = function(obj) {
+        return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
+    }
 
     owner.mixin(storage, owner);
 

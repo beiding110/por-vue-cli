@@ -1,3 +1,7 @@
+function getType(obj) {
+    return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
+}
+
 export default {
     init: () => {
         var indexRoutes = [];
@@ -25,7 +29,11 @@ export function initPcRouter() {
     const indexFiles = require.context('@views/pc', true, /\/router\/index\.js$/);
     indexFiles.keys().forEach((modulePath) => {
         const value = indexFiles(modulePath);
-        indexRoutes.push(value.default);
+        if(getType(value.default) === 'object') {
+            indexRoutes.push(value.default);
+        } else if(getType(value.default) === 'array') {
+            indexRoutes.push.apply(indexRoutes, value.default);
+        }
     });
 
     return indexRoutes
@@ -42,7 +50,11 @@ export function initMobileRouter() {
     const indexFiles = require.context('@views/mobile', true, /\/router\/index\.js$/);
     indexFiles.keys().forEach((modulePath) => {
         const value = indexFiles(modulePath);
-        indexRoutes.push(value.default);
+        if(getType(value.default) === 'object') {
+            indexRoutes.push(value.default);
+        } else if(getType(value.default) === 'array') {
+            indexRoutes.push.apply(indexRoutes, value.default);
+        }
     });
 
     return indexRoutes
