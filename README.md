@@ -41,7 +41,7 @@
 ``` bash
 # 初次启动安装依赖
 npm install
-yarn init
+yarn install
 
 # 开发模式
 npm run dev
