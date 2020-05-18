@@ -58,7 +58,8 @@ export default {
             default: false
         },
         size: {
-            type: String
+            type: String,
+            default: 'small'
         },
         allowCreate: {
             type: Boolean,

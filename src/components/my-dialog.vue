@@ -1,6 +1,5 @@
 <template>
     <el-dialog
-        v-dialogDrag
         :title="title"
         @opened="opened"
         :width="width"

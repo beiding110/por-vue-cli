@@ -8,6 +8,9 @@ if(config.element) {
     const zhui = require('@components/index.js');
     Vue.use(zhui.default);
 
+    const sysUi = require('@components-sys/index.js');
+    Vue.use(sysUi.default);
+
 
     const THTME = config['element-theme'];
     const THEME_OBJ = {

@@ -1,9 +1,9 @@
 <template>
-    <el-form ref="form" :model="form" :label-width="labelWidth||'80px'" :size="size" :label-position="labelPosition"
-    :disabled="disabled || readonly" :class="inAttr(disabled)||inAttr(readonly) ? 'disabled' : ''"
-    :inline="inAttr(inline)" v-loading.sync="submitLoadingController">
+    <el-form ref="form" :model="form" :label-width="labelWidth" :size="size" :label-position="labelPosition"
+    :disabled="disabled || readonly" :class="disabled||readonly ? 'disabled' : ''"
+    :inline="inline" v-loading.sync="submitLoadingController">
     <slot></slot>
-    <el-form-item label-width="0" style="text-align:center;margin-top: 20px;" v-if="!inAttr(readonly)">
+    <el-form-item label-width="0" style="text-align:center;margin-top: 20px;" v-if="!readonly">
         <slot name="btn" :submit-handler="onSubmit" :cancle-handler="onCancle" :submit-loading="submitLoadingController">
             <el-button type="primary" @click="onSubmit" :style="btn_styl" :loading="submitLoadingController">保存</el-button>
             <el-button @click="onCancle" :style="btn_styl">取消</el-button>
@@ -14,9 +14,68 @@
 
 <script>
 export default {
-    props: ['labelWidth', 'value', 'submitUrl', 'size', 'labelPosition', 'disabled', 'beforeSend', 'afterSend',
-        'sendStr', 'readonly', 'detailUrl', 'file', 'afterDetail', 'detailExtra', 'inline'
-    ],
+    props: {
+        labelWidth: {
+            type: String,
+            default: '80px'
+        },
+        value: {
+            type: Object,
+            default: () => ({})
+        },
+        submitUrl: {
+            type: String,
+            default: ''
+        },
+        detailUrl: {
+            type: String,
+            default: ''
+        },
+        size: {
+            type: String,
+            default: 'small'
+        },
+        labelPosition: {
+            type: String,
+            default: 'right'
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        readonly: {
+            type: Boolean,
+            default: false
+        },
+        beforeSend: {
+            type: Function,
+            default: () => {}
+        },
+        afterSend: {
+            type: Function,
+            default: () => {}
+        },
+        afterDetail: {
+            type: Function,
+            default: () => {}
+        },
+        detailExtra: {
+            type: Object,
+            default: () => ({})
+        },
+        sendStr: {
+            type: Boolean,
+            default: false
+        },
+        file: {
+            type: Boolean,
+            default: false
+        },
+        inline: {
+            type: Boolean,
+            default: false
+        }
+    },
     data() {
         return {
             submitLoadingController: false,
@@ -90,7 +149,7 @@ export default {
 
                                     !!callback && callback();
                                 },
-                                fztype: inAttr(obj.sendStr),
+                                fztype: obj.sendStr,
                                 complete: function () {
                                     next();
                                 }
@@ -122,6 +181,8 @@ export default {
         close: function () {
             var that = this;
             try {
+                this.onCancle();
+
                 this.submitEnd();
             } catch (e) {}
         },
@@ -137,7 +198,7 @@ export default {
         queryDetail: function () {
             if (!!this.detailUrl) {
                 var that = this;
-                if (inAttr(this.file)) {
+                if (this.file) {
                     this.$get(this.detailUrl, this.detailExtra, function (data) {
                         !!this.afterDetail && this.afterDetail(data);
                         this.form = data;
