@@ -1,7 +1,7 @@
 <template>
     <el-radio-group v-model="model" class="my__radio">
         <template v-for="item in list">
-    	   <el-radio :label="props.value">{{item[props.label]}}</el-radio>
+    	   <el-radio :label="item[props.value]">{{item[props.label]}}</el-radio>
         </template>
         <slot>
 

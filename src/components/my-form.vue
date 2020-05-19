@@ -1,15 +1,22 @@
 <template>
-    <el-form ref="form" :model="form" :label-width="labelWidth" :size="size" :label-position="labelPosition"
-    :disabled="disabled || readonly" :class="disabled||readonly ? 'disabled' : ''"
-    :inline="inline" v-loading.sync="submitLoadingController">
-    <slot></slot>
-    <el-form-item label-width="0" style="text-align:center;margin-top: 20px;" v-if="!readonly">
-        <slot name="btn" :submit-handler="onSubmit" :cancle-handler="onCancle" :submit-loading="submitLoadingController">
-            <el-button type="primary" @click="onSubmit" :style="btn_styl" :loading="submitLoadingController">保存</el-button>
-            <el-button @click="onCancle" :style="btn_styl">取消</el-button>
-        </slot>
-    </el-form-item>
-</el-form>
+    <el-form
+    ref="form"
+    :model="form"
+    :label-width="labelWidth"
+    :size="size"
+    :label-position="labelPosition"
+    :disabled="disabled || readonly"
+    :class="{disabled:disabled||readonly, 'table-view':table}"
+    :inline="inline"
+    v-loading.sync="submitLoadingController">
+        <slot></slot>
+        <el-form-item label-width="0" class="btn-row" v-if="!readonly">
+            <slot name="btn" :submit-handler="onSubmit" :cancle-handler="onCancle" :submit-loading="submitLoadingController">
+                <el-button type="primary" @click="onSubmit" :style="btn_styl" :loading="submitLoadingController">保存</el-button>
+                <el-button @click="onCancle" :style="btn_styl">取消</el-button>
+            </slot>
+        </el-form-item>
+    </el-form>
 </template>
 
 <script>
@@ -72,6 +79,10 @@ export default {
             default: false
         },
         inline: {
+            type: Boolean,
+            default: false
+        },
+        table: {
             type: Boolean,
             default: false
         }
@@ -234,8 +245,26 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="scss">
 .disabled.el-form /deep/ .el-form-item {
     margin-bottom: 2px;
+}
+.btn-row{text-align:center; margin-top:20px;}
+
+$tableBorderColor: #E8E8E8;
+.table-view{border-left:1px solid $tableBorderColor; border-top:1px solid $tableBorderColor; overflow:hidden; display:flex; flex-wrap:wrap;
+    /deep/ .el-form-item{margin:0; border-right:1px solid $tableBorderColor; border-bottom:1px solid $tableBorderColor; box-sizing:border-box;}
+    /deep/ .el-form-item:not(.btn-row){width:50%; position:relative;
+        .el-form-item__label{position:absolute; left:0; top:0; bottom:0; line-height:auto; border-right:1px solid $tableBorderColor; box-sizing:border-box; background:#F9FBFE; display:flex; align-items:center; justify-content:flex-end;}
+        .el-form-item__content{padding:5px; position:relative;
+            .el-form-item__error{top:auto; bottom:-.5em; left:5px;}
+        }
+    }
+    .btn-row{width:100%; padding:1em 0;}
+}
+@media screen and (max-width: 1000px) {
+    .table-view{
+        /deep/ .el-form-item:not(.btn-row){width:100%;}
+    }
 }
 </style>
