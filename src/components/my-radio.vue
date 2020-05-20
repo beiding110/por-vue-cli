@@ -1,12 +1,17 @@
 <template>
-    <el-radio-group v-model="model" class="my__radio">
-        <template v-for="item in list">
-    	   <el-radio :label="item[props.value]">{{item[props.label]}}</el-radio>
-        </template>
-        <slot>
+    <span class="my__radio">
+        <el-radio-group v-model="model" v-if="!readonly">
+            <template v-for="item in list">
+               <el-radio :label="item[props.value]">{{item[props.label]}}</el-radio>
+            </template>
+            <slot>
 
-        </slot>
-    </el-radio-group>
+            </slot>
+        </el-radio-group>
+        <template v-else>
+            {{selectedLabel}}
+        </template>
+    </span>
 </template>
 
 <script>
@@ -34,6 +39,10 @@ export default {
                     label: 'value'
                 }
             }
+        },
+        readonly: {
+            type: Boolean,
+            default: false
         }
     },
     data: function () {
@@ -49,6 +58,12 @@ export default {
             set: function (val) {
                 this.$emit('input', val);
             }
+        },
+        selectedLabel() {
+            return this.list.reduce((res, item) => {
+                if(item[this.props.value] === this.value) res = item[this.props.label];
+                return res
+            }, '');
         }
     },
     watch: {

@@ -256,7 +256,7 @@ $tableBorderColor: #E8E8E8;
     /deep/ .el-form-item{margin:0; border-right:1px solid $tableBorderColor; border-bottom:1px solid $tableBorderColor; box-sizing:border-box;}
     /deep/ .el-form-item:not(.btn-row){width:50%; position:relative;
         .el-form-item__label{position:absolute; left:0; top:0; bottom:0; line-height:auto; border-right:1px solid $tableBorderColor; box-sizing:border-box; background:#F9FBFE; display:flex; align-items:center; justify-content:flex-end;}
-        .el-form-item__content{padding:5px; position:relative;
+        .el-form-item__content{padding:5px; position:relative; min-height:2em;
             .el-form-item__error{top:auto; bottom:-.5em; left:5px;}
         }
     }

@@ -9,7 +9,11 @@ import Vue from 'vue'
         return this.$route.params[key];
     };
     owner.getQuery = function(key) {
-        return this.$route.query[key];
+        if(key) {
+            return this.$route.query[key];
+        } else {
+            return this.$route.query;
+        };
     };
 
     /**
