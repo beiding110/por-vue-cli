@@ -5,6 +5,9 @@
 </template>
 
 <script>
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+
 export default {
     props: {
         value: {
@@ -59,6 +62,7 @@ export default {
     methods: {
         queryData: function (page) {
             var that = this;
+            NProgress.start();
             this.$nextTick(function () {
                 if (!that.action) {
                     throw new Error('请绑定action属性（数据api请求地址）');
@@ -73,14 +77,21 @@ export default {
                     searchData.sortname = (!!searchData.sortname || searchData.sortname === '') ? searchData.sortname : 'addtime';
                     searchData.sortorder = searchData.sortorder || 'desc';
 
-                    this.$get(that.action, searchData, function (data, res) {
-                        !!this.afterQuery && this.afterQuery(data.rows, data);
-                        that.pageData = data.rows;
-                        that.$nextTick(function() {
-                            that.total = data.total;
-                        });
+                    this.$ajax({
+                        url: that.action,
+                        data: searchData,
+                        callback: (data, res) => {
+                            !!this.afterQuery && this.afterQuery(data.rows, data);
+                            that.pageData = data.rows;
+                            that.$nextTick(function() {
+                                that.total = data.total;
+                            });
 
-                        this.$emit('update:extra', data.extra);
+                            this.$emit('update:extra', data.extra);
+                        },
+                        complete() {
+                            NProgress.done();
+                        }
                     });
                 }
             })

@@ -31,9 +31,12 @@ module.exports = {
             '@': resolve('src'),
             '@assets': resolve('src/assets'),
             '@components': resolve('src/components'),
+            '@components-sys': resolve('src/components-sys'),
+            '@config': resolve('src/config'),
             '@css': resolve('src/css'),
             '@js': resolve('src/js'),
             '@layout': resolve('src/layout'),
+            '@mixins': resolve('src/mixins'),
             '@router': resolve('src/router'),
             '@store': resolve('src/store'),
             '@views': resolve('src/views')
