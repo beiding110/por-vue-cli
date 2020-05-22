@@ -126,6 +126,10 @@ export default {
         type: {
             type: String,
             default: 'agenct'
+        },
+        extra: {
+            type: Object,
+            default: () => ({})
         }
     },
     data: function () {
@@ -151,11 +155,15 @@ export default {
             return !this.readonly;
         },
         extraData: function () {
-            return {
+            var extra = {
                 fileguid: this.fileGuid,
-                typecode: this.fileType,
+                filetype: this.fileType,
                 single: (this.single * 1)
-            }
+            };
+
+            mixin(this.extra, extra);
+
+            return extra;
         },
         pathSupply() {
             return /micromessenger/i.test(navigator.userAgent) ? '?mp.wexin.qq.com' : ''
@@ -185,22 +193,24 @@ export default {
             this.fileListUpdateHandler();
         },
         handleDelete: function (index, row) { //删除文件
-            this.getListLoading = true;
-            this.$ajax({
-                type: 'post',
-                url: `${this.getGetters('fileUrl')}/operate/delete.json`,
-                data: {
-                    rowguid: row.rowguid
-                },
-                callback: data => {
-                    this.fileList.splice(index, 1);
-                    this.$emit('update', this.fileList);
-                },
-                complete: () => {
-                    this.getListLoading = false;
-                }
+            ShowConfirm('删除附件后无法撤销，请确认是否删除', 'warning', () => {
+                this.getListLoading = true;
+                this.$ajax({
+                    type: 'post',
+                    url: `${this.getGetters('fileUrl')}/operate/delete.json`,
+                    data: {
+                        rowguid: row.rowguid
+                    },
+                    callback: data => {
+                        this.fileList.splice(index, 1);
+                        this.$emit('update', this.fileList);
+                    },
+                    complete: () => {
+                        this.getListLoading = false;
+                    }
+                });
+                this.fileListUpdateHandler();
             });
-            this.fileListUpdateHandler();
         },
         beforeAvatarUpload: function (file) {
             var arr = file.name.split('.');
@@ -235,7 +245,9 @@ export default {
 
             ajaxResCheck.call(this, obj, function () {
                 // this.bindFileList();
-                this.fileList = obj.tdata;
+                var file = clone(obj.tdata[0]);
+                file.fileuptime = file.addtime;
+                this.fileList.push(file);
 
                 ShowMsg.call(this, obj.msg ? obj.msg : "上传成功",'success');
                 this.$emit('update', fileList);
