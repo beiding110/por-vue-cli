@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="my-search">
         <el-form :inline="true" :model="pgData" size="small">
             <slot></slot>
             <slot name="time">
@@ -13,7 +13,8 @@
                 </el-form-item>
             </slot>
             <el-form-item>
-                <el-button type="primary" @click="onSearchSubmit">查询</el-button>
+                <el-button type="primary" icon="el-icon-search" @click="onSearchSubmit">查询</el-button>
+                <slot name="btn"></slot>
             </el-form-item>
             <slot name="dr"></slot>
         </el-form>
