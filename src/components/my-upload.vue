@@ -38,11 +38,14 @@
             </template>
 
             <span :style="{marginLeft:readonly ? '' : '1em'}" v-if="single" class="single__file--name">
-                <a
-                target="_blank"
-                :href="fileList[0] ? buildDownloadPath(fileList[0]) : ''">
-                    {{fileList[0] ? fileList[0].filename : ''}}
-                </a>
+                <span v-if="fileList[0]">
+                    <a
+                    target="_blank"
+                    :href="buildDownloadPath(fileList[0])">
+                        {{fileList[0].filename}}
+                    </a>
+                    <i class="el-icon-circle-close btn-sf-del" @click="singleFileDel(fileList[0])"></i>
+                </span>
             </span>
             <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload" v-if="lazy">上传到服务器</el-button>
         </el-upload>
@@ -176,12 +179,14 @@ export default {
             if(!this.fileGuid) return;
 
             this.getListLoading = true;
+            var data = {
+                fileguid: this.fileGuid
+            };
+            mixin(this.extra, data);
 
             this.$ajax({
                 url: `${this.getGetters('fileUrl')}/operate/getlist.json`,
-                data: {
-                    fileguid: this.fileGuid
-                },
+                data,
                 callback: data => {
                     this.fileList = data || [];
                     this.$emit('update', this.fileList);
@@ -192,7 +197,7 @@ export default {
             });
             this.fileListUpdateHandler();
         },
-        handleDelete: function (index, row) { //删除文件
+        deleteHandler(row, cb) {
             ShowConfirm('删除附件后无法撤销，请确认是否删除', 'warning', () => {
                 this.getListLoading = true;
                 this.$ajax({
@@ -202,7 +207,7 @@ export default {
                         rowguid: row.rowguid
                     },
                     callback: data => {
-                        this.fileList.splice(index, 1);
+                        cb && cb();
                         this.$emit('update', this.fileList);
                     },
                     complete: () => {
@@ -210,6 +215,16 @@ export default {
                     }
                 });
                 this.fileListUpdateHandler();
+            });
+        },
+        handleDelete: function (index, row) { //删除文件
+            this.deleteHandler(row, () => {
+                this.fileList.splice(index, 1);
+            });
+        },
+        singleFileDel(row) {
+            this.deleteHandler(row, () => {
+                this.fileList = [];
             });
         },
         beforeAvatarUpload: function (file) {
@@ -316,6 +331,14 @@ export default {
             if (e) {
                 this.bindFileList();
             }
+        },
+        extra: {
+            handler(n, o) {
+                if(n !== o) {
+                    if(!this.fileGuid) return;
+                    this.bindFileList();
+                }
+            }, deep: true
         }
     }
 }
@@ -324,4 +347,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .file-type_tip{font-size:12px; color:#909399; line-height:1em;}
+    .btn-sf-del{cursor:pointer;}
+    .btn-sf-del:hover{color:red;}
 </style>
