@@ -113,10 +113,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-    /* .my__pagination{padding: 0 2em 2em;} */
-    .my__pagination .el-pager li.active{color:#FFCC55;}
-    .my__pagination .el-pager li, .my__pagination .el-pagination button:disabled, .my__pagination .el-pagination .btn-next, .my__pagination .el-pagination .btn-prev{background: rgba(0,0,0,0);}
-    /* .my__pagination .el-pagination .btn-next, .my__pagination .el-pagination .btn-prev{color:white;} */
-    .my__pagination .el-pagination button:hover{color:#FFCC55;}
-    .my__pagination .el-pagination{color: #888;}
+
 </style>
