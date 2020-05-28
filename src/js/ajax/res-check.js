@@ -5,19 +5,26 @@ import router from '@router/index'
 const IS_MOBILE = /iPhone|Android/i.test(window.navigator.userAgent.toLowerCase());
 const IS_NODE = (typeof window === 'undefined');
 
+var donot_show_again = false;
 function showMB (msg, type, callback) {
+    if(donot_show_again) return;
+
     callback = callback || function () { }
     if(IS_NODE) {
         console.error(msg);
     } else {
         if(IS_MOBILE){
             mintMB.alert(msg, '提示').then(function(a) {
-                callback()
+                callback();
+                donot_show_again = false;
             });
         }else {
             eleMB.alert(msg, {
                 type: type || "warning",
-                callback: callback,
+                callback() {
+                    callback();
+                    donot_show_again = false;
+                },
                 dangerouslyUseHTMLString: true
             });
         };
@@ -48,8 +55,14 @@ export default function(obj, settings, callback){
        'login-index': function() {
            showMB(obj.msg, 'error', function(){
                sessionStorage.clear();
-               router.push('/login');
+
+               if(IS_MOBILE) {
+                   router.push('/login');
+               } else {
+                   router.push('/login');
+               };
            });
+           donot_show_again = true;
            return [obj];
        },
        'jump-url': function () {
