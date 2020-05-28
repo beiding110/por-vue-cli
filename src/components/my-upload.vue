@@ -164,7 +164,7 @@ export default {
                 single: (this.single * 1)
             };
 
-            mixin(this.extra, extra);
+            mixin(this.extra, extra, true);
 
             return extra;
         },
@@ -182,7 +182,7 @@ export default {
             var data = {
                 fileguid: this.fileGuid
             };
-            mixin(this.extra, data);
+            mixin(this.extra, data, true);
 
             this.$ajax({
                 url: `${this.getGetters('fileUrl')}/operate/getlist.json`,
