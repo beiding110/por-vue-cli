@@ -38,7 +38,7 @@ export default {
             type: String
         }, //导入的url地址
         value: {
-            type: String
+            type: [String, Number]
         }, //接受外部v-model传入的值
         props: {
             type: Object,
