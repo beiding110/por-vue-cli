@@ -177,6 +177,7 @@ export default {
             var that = this;
 
             if(!this.fileGuid) return;
+            if(this.getListLoading) return;
 
             this.getListLoading = true;
             var data = {
@@ -335,7 +336,6 @@ export default {
         extra: {
             handler(n, o) {
                 if(n !== o) {
-                    if(!this.fileGuid) return;
                     this.bindFileList();
                 }
             }, deep: true
