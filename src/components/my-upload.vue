@@ -335,7 +335,7 @@ export default {
         },
         extra: {
             handler(n, o) {
-                if(n !== o) {
+                if(JSON.stringify(n) !== JSON.stringify(o)) {
                     this.bindFileList();
                 }
             }, deep: true
