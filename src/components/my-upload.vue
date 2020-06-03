@@ -44,7 +44,7 @@
                     :href="buildDownloadPath(fileList[0])">
                         {{fileList[0].filename}}
                     </a>
-                    <i class="el-icon-circle-close btn-sf-del" @click="singleFileDel(fileList[0])"></i>
+                    <i class="el-icon-circle-close btn-sf-del" @click="singleFileDel(fileList[0])" v-if="!readonly"></i>
                 </span>
             </span>
             <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload" v-if="lazy">上传到服务器</el-button>
