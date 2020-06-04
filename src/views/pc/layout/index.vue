@@ -22,6 +22,8 @@
         <div class="btn-back btn_top-nav circle" @click="goBack">
             <i class="el-icon-back"></i>
         </div>
+
+        <my-breadcrumb></my-breadcrumb>
     </div>
     <div class="view" :class="{collapse:collapseController}" id="view-content">
         <router-view/>
@@ -30,7 +32,10 @@
 </template>
 
 <script>
+import MyBreadcrumb from './components/breadcrumb'
+
 export default {
+    components: {MyBreadcrumb},
     data () {
         return {
             collapseController: false,

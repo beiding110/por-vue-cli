@@ -1,6 +1,6 @@
 export default {
     state: {
-        
+        bread: []
     },
     getters: {
 
@@ -8,6 +8,9 @@ export default {
     mutations: {
         setState: function(state, n){
             mixin(n, state, true);
+        },
+        setBread(state, n) {
+            state.bread = n;
         }
     }
 }
