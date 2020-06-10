@@ -13,6 +13,8 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const env = require('../config/prod.env')
 
+const staticFoldersPlugin = utils.buildStaticPlugin(config.build.assetsSubDirectory);
+
 var baseConfig = {
     module: {
         rules: utils.styleLoaders({
@@ -115,7 +117,8 @@ var baseConfig = {
                 to: config.build.assetsSubDirectory,
                 ignore: ['.*']
             }
-        ])
+        ]),
+        ...staticFoldersPlugin
     ]
 };
 

@@ -18,6 +18,7 @@ pc（平台名称，如单一平台则去除该层）
         |-components    包独有组件库（如有）
         |-js            包独有方法（如有）
         |-mixins        包独有mixins文件（如有）
+        |-static        包独有static文件（如有）
         |-router        包独有router文件
             |-modules       controller对应的子路由
             |-inxex         包路由入口
@@ -37,3 +38,5 @@ pc（平台名称，如单一平台则去除该层）
 ...
 
 ```
+
+包内独立维护的 `static文件夹` 将会在打包的时候自动按照 `包根路径/包名` 的文件路径复制到 `dist/static` 下，在本例中最终的打包路径为 `/static/pc/teamwork/...`
