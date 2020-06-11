@@ -112,7 +112,8 @@ export default {
     },
     methods: {
         onSubmit: function (e, callback) {
-            var that = this;
+            var that = this,
+                ajaxRes;
 
             new Chain().link(function (obj, next) {
                 if (obj.submitLock) {
@@ -133,10 +134,17 @@ export default {
                     next()
                 });
             }).link(function (obj, next) {
-                !!obj.beforeSend && obj.beforeSend();
-                obj.$nextTick(function () {
+                if(!!obj.beforeSend) {
+                    obj.beforeSend(function() {
+                        obj.$nextTick(function () {
+                            next();
+                        })
+                    }, function() {
+                        obj.submitEnd();
+                    });
+                } else {
                     next();
-                })
+                }
             }).link(function (obj, next) {
                 obj.$refs['form'].validate(function (valid) {
                     if (valid) {
@@ -153,6 +161,7 @@ export default {
                                 url: obj.submitUrl,
                                 data: obj.form,
                                 callback: function (data, res) {
+                                    ajaxRes = res;
                                     obj.$emit('submit');
                                     ShowMsg.call(obj, res.msg || '保存成功', 'success');
 
@@ -175,7 +184,7 @@ export default {
                     };
                 });
             }).link(function (obj, next) {
-                !!obj.afterSend && obj.afterSend();
+                !!obj.afterSend && obj.afterSend(ajaxRes);
                 obj.$nextTick(function () {
                     next();
                 })
@@ -225,7 +234,7 @@ export default {
                             this.form = data;
                         })
                     } else {
-                        // !!this.afterDetail && this.afterDetail();
+                        !!this.afterDetail && this.afterDetail();
                     }
                 }
             }
@@ -236,9 +245,6 @@ export default {
     },
     mounted: function () {
         var that = this;
-        // this.shadebox = new ShadeBox({
-        //     innerHTML: '<div style="position:absolute; left:50%; top:40%; transform:translate(-50%,-50%)"><i class="el-icon-loading"></i>处理中……</div>'
-        // });
         this.queryDetail();
     }
 }
