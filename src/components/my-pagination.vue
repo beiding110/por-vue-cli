@@ -1,6 +1,6 @@
 <template>
     <div :class="theme=='dark' ? '' : 'my__pagination'">
-        <el-pagination layout="prev, pager, next" :total="total" :page-size="!!search ? search.pagesize || 10 : 10" :current-page.sync="currentPage" style="text-align:right; margin-top:1em;" @current-change="handleCurrentChange"></el-pagination>
+        <el-pagination layout="prev, pager, next" :total="total" :page-size="!!search ? search.pagesize || defaultSearch.pagesize : defaultSearch.pagesize" :current-page.sync="currentPage" style="text-align:right; margin-top:1em;" @current-change="handleCurrentChange"></el-pagination>
     </div>
 </template>
 
@@ -46,7 +46,12 @@ export default {
     data () {
         return {
             total: 1,
-            currentPage: 1
+            currentPage: 1,
+            defaultSearch: {
+                sortname: 'addtime',
+                sortorder: 'desc',
+                pagesize: 20
+            }
         }
     },
     computed: {
@@ -74,8 +79,8 @@ export default {
 
                     this.currentPage = page;
                     searchData.pageindex = page;
-                    searchData.sortname = (!!searchData.sortname || searchData.sortname === '') ? searchData.sortname : 'addtime';
-                    searchData.sortorder = searchData.sortorder || 'desc';
+
+                    mixin(this.defaultSearch, searchData);
 
                     this.$ajax({
                         url: that.action,
