@@ -1,8 +1,8 @@
 <template>
     <span class="my__radio">
-        <el-radio-group v-model="model" v-if="!readonly">
+        <el-radio-group v-model="model" v-if="!readonly" @change="selectChange">
             <template v-for="item in list">
-               <el-radio :label="item[props.value]">{{item[props.label]}}</el-radio>
+               <el-radio :label="item[props.value]" :key="item[props.value]">{{item[props.label]}}</el-radio>
             </template>
             <slot>
 
@@ -43,11 +43,15 @@ export default {
         readonly: {
             type: Boolean,
             default: false
-        }
+        },
+        '2way': {
+            type: String
+        },
     },
     data: function () {
         return {
             list: [],
+            options: []
         }
     },
     computed: {
@@ -70,7 +74,8 @@ export default {
         data: {
             handler: function (n, o) {
                 if (n != o) {
-                    this.list = n
+                    this.list = n;
+                    this.options = this.list2map(n || []);
                 }
             },
             deep: true
@@ -81,10 +86,29 @@ export default {
             if (!!this.action) {
                 this.$get(this.action, function (data) {
                     this.list = data;
+                    this.options = this.list2map(data || []);
                 })
             } else {
                 this.list = this.data;
+                this.options = this.list2map(this.data || []);
             }
+        },
+        selectChange: function (item) {
+            if(this['2way']) {
+                var modelArr = this['2way'].split(',');
+                modelArr.forEach(function(key) {
+                    this.$emit('update:'+key, (this.options[item] || {})[key])
+                }.bind(this));
+            };
+
+            this.$emit("select", this.options[item] || {});
+        },
+        list2map: function (list) {
+            var that = this;
+            return list.reduce(function (map, item) {
+                map[item[that.props.value]] = item;
+                return map;
+            }, {})
         }
     },
     mounted: function () {
