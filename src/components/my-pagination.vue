@@ -1,6 +1,13 @@
 <template>
     <div :class="theme=='dark' ? '' : 'my__pagination'">
-        <el-pagination layout="prev, pager, next" :total="total" :page-size="!!search ? search.pagesize || defaultSearch.pagesize : defaultSearch.pagesize" :current-page.sync="currentPage" style="text-align:right; margin-top:1em;" @current-change="handleCurrentChange"></el-pagination>
+        <el-pagination
+            layout="prev, pager, next"
+            :total="total"
+            :page-size="!!search ? search.pagesize || defaultSearch.pagesize : defaultSearch.pagesize"
+            :current-page.sync="currentPage"
+            style="text-align:right; margin-top:1em;"
+            @current-change="handleCurrentChange"
+        ></el-pagination>
     </div>
 </template>
 
