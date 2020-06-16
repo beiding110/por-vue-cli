@@ -65,6 +65,7 @@ window.ShowConfirm = function (msg, type, cb1, cb2) {
             cancelButtonText: '取消',
             type: type || 'warning',
             showClose: false,
+            dangerouslyUseHTMLString: true,
             callback: function (action, instance) {
                 if (action == 'confirm') {
                     cb1();

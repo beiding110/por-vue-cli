@@ -55,16 +55,16 @@ export default {
             default: false
         },
         beforeSend: {
-            type: Function,
-            default: () => {}
+            type: [Function, Boolean],
+            default: false
         },
         afterSend: {
-            type: Function,
-            default: () => {}
+            type: [Function, Boolean],
+            default: false
         },
         afterDetail: {
-            type: Function,
-            default: () => {}
+            type: [Function, Boolean],
+            default: false
         },
         detailExtra: {
             type: Object,
@@ -134,7 +134,7 @@ export default {
                     next()
                 });
             }).link(function (obj, next) {
-                if(!!obj.beforeSend) {
+                if(obj.beforeSend) {
                     obj.beforeSend(function() {
                         obj.$nextTick(function () {
                             next();
