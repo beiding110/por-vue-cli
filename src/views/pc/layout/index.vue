@@ -26,7 +26,7 @@
         <my-breadcrumb></my-breadcrumb>
     </div>
     <div class="view" :class="{collapse:collapseController}" id="view-content">
-        <router-view/>
+        <router-view :key="$route.fullPath" />
     </div>
 </div>
 </template>
