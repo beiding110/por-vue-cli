@@ -1,9 +1,21 @@
 <template>
-    <script id="" name="_UEditor" type="text/plain" class="my-ueditor" style="height:300px;" ref="_UEditor"></script>
+    <div>
+        <script
+            v-if="!readonly"
+            id=""
+            name="_UEditor"
+            type="text/plain"
+            class="my-ueditor"
+            style="height:300px;"
+            ref="_UEditor"
+        ></script>
+        <div
+            v-if="readonly"
+            v-html="value"
+            class="ueditor-readonly"
+        ></div>
+    </div>
 </template>
-
-<!-- <script type="text/javascript" charset="utf-8" src="/agency/uedtior/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="/agency/uedtior/ueditor.all.min.js"> </script> -->
 
 <script>
 export default {
@@ -23,6 +35,10 @@ export default {
                 ],
                 wordCount: false
             })
+        },
+        readonly: {
+            type: Boolean,
+            default: false
         }
     },
     data () {
@@ -32,6 +48,7 @@ export default {
     },
     watch: {
         value: function (nv, ov) {
+            if(this.readonly) return;
             if (!ov && nv) {
                 try {
                     this.ue.setContent(nv);
@@ -45,6 +62,7 @@ export default {
         }
     },
     mounted: function () {
+        if(this.readonly) return;
         this.$nextTick(function () {
             var config = this.config;
 
@@ -81,6 +99,9 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
+<style lang="scss">
     .my-ueditor .edui-toolbar{line-height:1em;}
+    .ueditor-readonly{
+        *{max-width:100%;}
+    }
 </style>
