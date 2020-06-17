@@ -21,6 +21,8 @@ export default{
 
         Vue.component('cnzz', function(){return import(/*webpackChunkName: 'coms'*/ './cnzz')});
 
+        Vue.component('ueditor', function(){return import(/*webpackChunkName: 'coms'*/ './ueditor')});
+
         Vue.component('pdf', function(){return import(/*webpackChunkName: 'coms'*/ './pdf-js')});
         // Vue.component('word', function(){return import(/*webpackChunkName: 'coms'*/ './word')});
         Vue.component('photo', function(){return import(/*webpackChunkName: 'coms'*/ './picture-view')});
