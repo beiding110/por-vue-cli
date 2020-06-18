@@ -58,7 +58,12 @@ export default {
                 try {
                     this.ue.setContent(nv);
                 } catch (e) {}
-            }
+            } else {
+                try {
+                    this.ue.setContent(nv);
+                    this.ue.focus(true);
+                } catch (e) {}
+            };
         }
     },
     mounted: function () {
