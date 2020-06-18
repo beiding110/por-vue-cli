@@ -14,3 +14,21 @@ yarn-error.log*
 *.sln
 /package-lock.json
 /yarn.lock
+
+# /src/views/pc/
+# !/src/views/pc/css
+# !/src/views/pc/layout
+# !/src/views/pc/login
+# !/src/views/pc/mixins
+# !/src/views/pc/router.js
+# !/src/views/pc/store.js
+# !/src/views/pc/README.md
+
+# /src/views/mobile/
+# !/src/views/mobile/css
+# !/src/views/mobile/layout
+# !/src/views/mobile/login
+# !/src/views/mobile/mixins
+# !/src/views/mobile/router.js
+# !/src/views/mobile/store.js
+# !/src/views/mobile/README.md
