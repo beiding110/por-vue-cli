@@ -12,10 +12,13 @@ export default {
             urlPrefix: '~/static/js'
         }
     },
-    element: true,
+    element: {
+        //element主题 purple / orange / default
+        theme: require('element-ui/lib/theme-chalk/index.css')
+        // require('@css/theme/purple/index.css')
+        // require('@css/theme/orange/index.css')
+    },
     mint: true,
-    //element主题 purple / orange / default
-    'element-theme': 'default',
     router: {
         pc: {
             'base-name': 'pc',

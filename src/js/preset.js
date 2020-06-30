@@ -10,16 +10,6 @@ if(config.element) {
 
     const sysUi = require('@components-sys/index.js');
     Vue.use(sysUi.default);
-
-
-    const THTME = config['element-theme'];
-    const THEME_OBJ = {
-        default: () => require('element-ui/lib/theme-chalk/index.css'),
-        purple: () => require('@css/theme/purple/index.css'),
-        orange: () => require('@css/theme/orange/index.css'),
-    };
-
-    THEME_OBJ[THTME]();
 };
 if(config.mint) {
     const Mint = require('mint-ui');
