@@ -1,15 +1,16 @@
 <template>
     <el-select
     v-model="svalue"
-    :placeholder="placeholder||'请选择'"
     filterable
     @change="selectChange"
     @visible-change="visibleChange"
     @focus="focus"
+    :placeholder="placeholder"
     :clearable="clearable"
     :size="size"
     :disabled="disabled"
-    :allow-create="allowCreate">
+    :allow-create="allowCreate"
+    >
         <el-option
         v-for="pName in Object.keys(options)"
         :key="options[pName][props.value]"
@@ -50,7 +51,8 @@ export default {
             }
         }, //定义数据中作为select的label与value的字段
         placeholder: {
-            type: String
+            type: String,
+            default: '请选择'
         },
         filterable: {},
         multiple: {
