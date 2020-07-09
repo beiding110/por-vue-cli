@@ -72,9 +72,11 @@ export default {
             };
         }
     },
-    mounted: function() {
+    created() {
+        this.resizeHandler();
         window.addEventListener('resize', this.resizeHandler);
-
+    },
+    mounted: function() {
         // this.queryMenu();
     },
     beforeDestroy() {
