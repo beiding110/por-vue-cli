@@ -2,8 +2,8 @@
     <span class="my__checkbox">
         <span v-if="!inAttr(readonly)">
             <el-checkbox-group v-model="model" style="display:inline-block;">
-            	<el-checkbox v-for="item in list"
-                    :key="item[props.value]"
+            	<el-checkbox v-for="item in list" 
+                    :key="item[props.value]" 
                     :label="item[props.value]"
                 >
                     {{item[props.label]}}
@@ -82,7 +82,10 @@ export default {
         model: {
             get: function () {
                 if(this.modelStr) {
-                    var valueArr = this.value.split(this.strSpliter);
+                    var valueArr = [];
+                    if(getType(this.value) === 'string') {
+                        valueArr = this.value.split(this.strSpliter);
+                    };
                     if(valueArr[0] === '') {
                         return valueArr.slice(1);
                     } else {
