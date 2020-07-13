@@ -1,6 +1,7 @@
 import { MessageBox as mintMB } from 'mint-ui'
 import { MessageBox as eleMB } from 'element-ui';
 import router from '@router/index'
+const Raven = require('raven-js');
 
 const IS_MOBILE = /iPhone|Android/i.test(window.navigator.userAgent.toLowerCase());
 const IS_NODE = (typeof window === 'undefined');
@@ -50,6 +51,15 @@ export default function(obj, settings, callback){
             if (!IsNullOrEmpty(obj.msg)) {
                 showMB(obj.msg, "success");
             };
+
+            Raven.captureException(new Error('ajaxResCheck code: value-error'), {
+                tags: 'ajax',
+                extra: {
+                    req: settings,
+                    res: obj
+                }
+            });
+
             return [obj];
         },
         'login-index': function() {
@@ -93,6 +103,15 @@ export default function(obj, settings, callback){
                     throw new Error(JSON.stringify(settings));
                 });
             };
+
+            Raven.captureException(new Error('ajaxResCheck code: error'), {
+                tags: 'ajax',
+                extra: {
+                    req: settings,
+                    res: obj
+                }
+            });
+
             return [obj];
         }
     }
@@ -105,6 +124,13 @@ export default function(obj, settings, callback){
                 callback && callback(obj);
             }())
             : showMB.call(this, obj.msg, 'error', function () {
+                Raven.captureException(new Error('unexpeted ajaxResCheck code'), {
+                    tags: 'ajax',
+                    extra: {
+                        req: settings,
+                        res: obj
+                    }
+                });
                 throw new Error('unexpeted ajaxResCheck code\nsettings:'+JSON.stringify(settings) + '\nresponse:' + JSON.stringify(obj));
             }));
 }
