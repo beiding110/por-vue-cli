@@ -32,79 +32,79 @@ function showMB (msg, type, callback) {
 }
 
 export default function(obj, settings, callback){
-   var callback = callback;
-   if(arguments.length == 2){
-       callback = settings;
-   }
+    var callback = callback;
+    if(arguments.length == 2){
+        callback = settings;
+    }
 
-   var switchObj = {
-       'v': function() {
-           !!callback && callback(obj.tdata, obj);
-           return [obj.tdata, obj];
-       },
-       'pglist': function() {
-           !!callback && callback(obj);
-           return [obj];
-       },
-       'valerror': function() {
-           if (!IsNullOrEmpty(obj.msg)) {
-               showMB(obj.msg, "success");
-           };
-           return [obj];
-       },
-       'login-index': function() {
-           showMB(obj.msg, 'error', function(){
-               sessionStorage.clear();
+    var switchObj = {
+        'v': function() {
+            !!callback && callback(obj.tdata, obj);
+            return [obj.tdata, obj];
+        },
+        'pglist': function() {
+            !!callback && callback(obj);
+            return [obj];
+        },
+        'valerror': function() {
+            if (!IsNullOrEmpty(obj.msg)) {
+                showMB(obj.msg, "success");
+            };
+            return [obj];
+        },
+        'login-index': function() {
+            showMB(obj.msg, 'error', function(){
+                sessionStorage.clear();
 
-               if(IS_MOBILE) {
-                   router.push('/login');
-               } else {
-                   router.push('/login');
-               };
-           });
-           donot_show_again = true;
-           return [obj];
-       },
-       'jump-url': function () {
-           showMB(obj.msg, 'info', function () {
-               router.push(obj.url);
-           });
-           return [obj];
-       },
-       'wechat': function() {
-           var url = obj.url;
-           if(obj.url) {
-               if(/http/.test(url)) {
-                   window.location.href = obj.url;
-               } else {
-                   if(!new RegExp(url).test(window.location.hash))
-                      router.push(url);
-               }
-           }
-           return [obj];
-       },
-       'error': function() {
-           if(/(40163)|(40029)/.test(obj.msg)) {
-               var href = window.location.href,
-                   search = window.location.search;
-               window.location.replace(href.replace(search, ''));
-           } else {
-               showMB(obj.msg, 'error', function(){
-                   throw new Error(JSON.stringify(settings));
-               });
-           };
-           return [obj];
-       }
-   }
+                if(IS_MOBILE) {
+                    router.push('/login');
+                } else {
+                    router.push('/login');
+                };
+            });
+            donot_show_again = true;
+            return [obj];
+        },
+        'jump-url': function () {
+            showMB(obj.msg, 'info', function () {
+                router.push(obj.url);
+            });
+            return [obj];
+        },
+        'wechat': function() {
+            var url = obj.url;
+            if(obj.url) {
+                if(/http/.test(url)) {
+                    window.location.href = obj.url;
+                } else {
+                    if(!new RegExp(url).test(window.location.hash))
+                    router.push(url);
+                }
+            }
+            return [obj];
+        },
+        'error': function() {
+            if(/(40163)|(40029)/.test(obj.msg)) {
+                var href = window.location.href,
+                search = window.location.search;
+                window.location.replace(href.replace(search, ''));
+            } else {
+                showMB(obj.msg, 'error', function(){
+                    throw new Error(JSON.stringify(settings));
+                });
+            };
+            return [obj];
+        }
+    }
 
-   return !!switchObj[obj.code]
-       ? switchObj[obj.code]()
-       : (/^(throw-)/.test(obj.code)
-           ? (function(){
-               obj.code = obj.code.split('throw-')[1];
-               callback && callback(obj);
-           }())
-           : showMB.call(this, obj.msg, 'error', function () {
-               throw new Error('unexpeted ajaxResCheck code\nsettings:'+JSON.stringify(settings) + '\nresponse:' + JSON.stringify(obj));
-           }));
+    return !!switchObj[obj.code]
+        ? switchObj[obj.code]()
+        : (/^(throw-)/.test(obj.code)
+            ? (function(){
+                obj.code = obj.code.split('throw-')[1];
+                callback && callback(obj);
+            }())
+            : showMB.call(this, obj.msg, 'error', function () {
+                throw new Error('unexpeted ajaxResCheck code\nsettings:'+JSON.stringify(settings) + '\nresponse:' + JSON.stringify(obj));
+            }));
 }
