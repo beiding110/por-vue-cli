@@ -11,6 +11,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
+const UseSentry = false;
+
 const env = require('../config/prod.env')
 
 const staticFoldersPlugin = utils.buildStaticPlugin(config.build.assetsSubDirectory);
@@ -122,15 +124,15 @@ var baseConfig = {
     ]
 };
 
-if(config.build.sentry) {
+if(UseSentry) {
     const SentryPlugin = require('@sentry/webpack-plugin');
     baseConfig.plugins.push(new SentryPlugin({
-        include: config.build.sentry.map.include,
         release: process.env.RELEASE_VERSION,
         configFile: 'sentry.properties',
-        urlPrefix: config.build.sentry.map.urlPrefix
+        include: path.join(__dirname, `../dist/${config.build.assetsSubDirectory}/js/`),
+        urlPrefix: `~/${config.build.assetsSubDirectory}/js`
     }));
-}
+};
 
 const webpackConfig = merge(baseWebpackConfig, baseConfig);
 
