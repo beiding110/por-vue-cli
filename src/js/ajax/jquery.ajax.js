@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import resCheck from './res-check';
-const Raven = require('raven-js');
+
+import util from './util';
 
 Vue.prototype.$ajax = function(obj) {
     AjaxRequest.call(this, obj);
@@ -179,18 +180,14 @@ function AjaxRequest(settings) {
                 '504': '请求超时，请检查网络'
             };
             ShowMsg.call(that, (XHR.status && switchObj[XHR.status]) ? (XHR.status + '：' + switchObj[XHR.status]) : '请求失败，请重试');
-            console.error('ajax-error:'+settings.url);
-            console.warn(XHR);
-
-            Raven.captureException(new Error('ajax failed: ' + XHR.status), {
-                tags: 'ajax',
-                extra: {
-                    req: settings,
-                    res: XHR
-                }
-            });
 
             !!settings.error && settings.error();
+
+            util.throwError({
+                settings,
+                obj: XHR,
+                msg: 'ajax-error'
+            });
         }
     })
 }

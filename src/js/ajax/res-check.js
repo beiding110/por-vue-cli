@@ -1,7 +1,8 @@
 import { MessageBox as mintMB } from 'mint-ui'
 import { MessageBox as eleMB } from 'element-ui';
 import router from '@router/index'
-const Raven = require('raven-js');
+
+import util from './util';
 
 const IS_MOBILE = /iPhone|Android/i.test(window.navigator.userAgent.toLowerCase());
 const IS_NODE = (typeof window === 'undefined');
@@ -30,7 +31,7 @@ function showMB (msg, type, callback) {
             });
         };
     };
-}
+};
 
 export default function(obj, settings, callback){
     var callback = callback;
@@ -49,16 +50,10 @@ export default function(obj, settings, callback){
         },
         'valerror': function() {
             if (!IsNullOrEmpty(obj.msg)) {
-                showMB(obj.msg, "success");
+                showMB(obj.msg, "info", function(){
+                    util.throwError({settings, obj});
+                });
             };
-
-            Raven.captureException(new Error('ajaxResCheck code: value-error'), {
-                tags: 'ajax',
-                extra: {
-                    req: settings,
-                    res: obj
-                }
-            });
 
             return [obj];
         },
@@ -100,17 +95,9 @@ export default function(obj, settings, callback){
                 window.location.replace(href.replace(search, ''));
             } else {
                 showMB(obj.msg, 'error', function(){
-                    throw new Error(JSON.stringify(settings));
+                    util.throwError({settings, obj});
                 });
             };
-
-            Raven.captureException(new Error('ajaxResCheck code: error'), {
-                tags: 'ajax',
-                extra: {
-                    req: settings,
-                    res: obj
-                }
-            });
 
             return [obj];
         }
@@ -124,13 +111,10 @@ export default function(obj, settings, callback){
                 callback && callback(obj);
             }())
             : showMB.call(this, obj.msg, 'error', function () {
-                Raven.captureException(new Error('unexpeted ajaxResCheck code'), {
-                    tags: 'ajax',
-                    extra: {
-                        req: settings,
-                        res: obj
-                    }
+                util.throwError({
+                    settings,
+                    obj,
+                    msg: 'unexpeted ajaxResCheck code'
                 });
-                throw new Error('unexpeted ajaxResCheck code\nsettings:'+JSON.stringify(settings) + '\nresponse:' + JSON.stringify(obj));
             }));
 }
