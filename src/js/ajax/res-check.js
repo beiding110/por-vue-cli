@@ -50,11 +50,10 @@ export default function(obj, settings, callback){
         },
         'valerror': function() {
             if (!IsNullOrEmpty(obj.msg)) {
-                showMB(obj.msg, "info", function(){
-                    util.throwError({settings, obj});
-                });
+                showMB(obj.msg, "info", function(){});
             };
 
+            util.throwError({settings, obj});
             return [obj];
         },
         'login-index': function() {
@@ -94,11 +93,10 @@ export default function(obj, settings, callback){
                 search = window.location.search;
                 window.location.replace(href.replace(search, ''));
             } else {
-                showMB(obj.msg, 'error', function(){
-                    util.throwError({settings, obj});
-                });
+                showMB(obj.msg, 'error', function(){});
             };
 
+            util.throwError({settings, obj});
             return [obj];
         }
     }
@@ -110,11 +108,13 @@ export default function(obj, settings, callback){
                 obj.code = obj.code.split('throw-')[1];
                 callback && callback(obj);
             }())
-            : showMB.call(this, obj.msg, 'error', function () {
+            : (function() {
+                showMB.call(this, obj.msg, 'error', function () {});
                 util.throwError({
                     settings,
                     obj,
                     msg: 'unexpeted ajaxResCheck code'
                 });
-            }));
+            }())
+        );
 }
