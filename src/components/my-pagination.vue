@@ -93,6 +93,11 @@ export default {
                         url: that.action,
                         data: searchData,
                         callback: (data, res) => {
+                            if (data.rows.length === 0 && this.currentPage !== 1) {
+                                this.queryData(--this.currentPage);
+                                return;
+                            };
+                            
                             !!this.afterQuery && this.afterQuery(data.rows, data);
                             that.pageData = data.rows;
                             that.$nextTick(function() {
