@@ -24,6 +24,8 @@
         </div>
 
         <my-breadcrumb></my-breadcrumb>
+
+        <user-info></user-info>
     </div>
     <div class="view" :class="{collapse:collapseController}" id="view-content">
         <router-view :key="$route.fullPath" />
@@ -33,9 +35,10 @@
 
 <script>
 import MyBreadcrumb from './components/breadcrumb'
+import UserInfo from './components/user-info'
 
 export default {
-    components: {MyBreadcrumb},
+    components: {MyBreadcrumb, UserInfo},
     data () {
         return {
             collapseController: false,
