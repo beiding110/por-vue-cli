@@ -11,6 +11,7 @@ export default{
         Vue.component('my-search', function(){return import(/*webpackChunkName: 'coms'*/ './my-search')});
 
         Vue.component('my-form', function(){return import(/*webpackChunkName: 'coms'*/ './my-form')});
+        Vue.component('my-form-item-group', function(){return import(/*webpackChunkName: 'coms'*/ './my-form-item-group')});
         Vue.component('my-checkbox', function(){return import(/*webpackChunkName: 'coms'*/ './my-checkbox')});
         Vue.component('my-radio', function(){return import(/*webpackChunkName: 'coms'*/ './my-radio')});
         Vue.component('my-select', function(){return import(/*webpackChunkName: 'coms'*/ './my-select')});
