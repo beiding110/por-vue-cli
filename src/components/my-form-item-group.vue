@@ -19,12 +19,14 @@ export default {
 </script>
 
 <style scope lang="scss">
+@import '@css/var.scss';
+
 $border-style:1px solid #E8E8E8;
 $title-space:1em;
 $title-line-height:32px;
 
 .my-form-item-group{ width:100%;
-    .form-item-group_title{ font-weight:bold; color:#606266; line-height:$title-line-height; padding:0 $title-space; border-bottom:$border-style; border-right:$border-style;
+    .form-item-group_title{ font-weight:bold; color:#606266; line-height:$title-line-height; padding:0 $title-space; border-bottom:$border-style; border-right:$border-style; background-color:$primaryColor1;
         &:before{content:'◆'; margin-right:$title-space / 2;}
     }
     .form-item-group_body{ display:flex; width:100%; flex-wrap:wrap; position:relative;
