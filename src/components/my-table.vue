@@ -1,7 +1,7 @@
 <template>
-    <div class="my__table">
-        <el-table
+    <el-table
         ref="table"
+        class="my__table"
         :border="border"
         :data.sync="!!url ? innerData : data"
         @selection-change="handleSelectionChange"
@@ -15,7 +15,6 @@
             <el-table-column type="selection" width="55" v-if="select" :selectable="selectable"></el-table-column>
         	<slot></slot>
         </el-table>
-    </div>
 </template>
 
 <script>
@@ -130,5 +129,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.my__table{width:100%;}
 </style>
