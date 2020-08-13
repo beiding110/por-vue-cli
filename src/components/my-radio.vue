@@ -6,7 +6,7 @@
             </template>
             <slot>
 
-            </slot>
+            </slot>            
         </el-radio-group>
         <template v-else>
             {{selectedLabel}}
@@ -41,7 +41,7 @@ export default {
             }
         },
         readonly: {
-            type: Boolean,
+            type: [Boolean, String, Number],
             default: false
         },
         '2way': {
