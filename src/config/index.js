@@ -8,7 +8,8 @@ export default {
     },
     element: {
         //element主题 purple / orange / default
-        theme: require('element-ui/lib/theme-chalk/index.css')
+        theme: require('@/css/element-customize.scss')
+        // theme: require('element-ui/lib/theme-chalk/index.css')
         // require('@css/theme/purple/index.css')
         // require('@css/theme/orange/index.css')
     },
