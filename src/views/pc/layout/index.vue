@@ -73,11 +73,18 @@ export default {
             } else {
                 this.mobile = false;
             };
+        },
+        checkFrameChild() {
+            if(window !== window.top) {
+                this.viewOnly = true;
+            };
         }
     },
     created() {
         this.resizeHandler();
         window.addEventListener('resize', this.resizeHandler);
+
+        this.checkFrameChild();
     },
     mounted: function() {
         // this.queryMenu();
