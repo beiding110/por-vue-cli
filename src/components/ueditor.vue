@@ -28,7 +28,8 @@ export default {
             type: Object,
             default: () => ({
                 toolbars: [
-                    ['fullscreen', 'source', 'undo', 'redo', 'fontfamily', 'fontsize', 'forecolor', 'bold', 'italic', 'underline', 'justifyleft', 'justifycenter',
+                    [
+                        'fullscreen', 'source', 'undo', 'redo', 'fontfamily', 'fontsize', 'forecolor', 'bold', 'italic', 'underline', 'justifyleft', 'justifycenter',
                         'justifyright', 'justifyjustify', 'backcolor', 'inserttable', 'inserttable', 'link', 'preview', 'unlink', 'inserttitle', 'date', 'time', 'formatmatch',
                         'simpleupload', 'insertimage'
                     ]
@@ -43,48 +44,28 @@ export default {
     },
     data () {
         return {
-            ue: null
+            ue: null,
+
+            content_inner: ''
         }
     },
     watch: {
-        value: function (nv, ov) {
-            if(this.readonly) return;
-            if (!ov && nv) {
-                try {
-                    this.ue.setContent(nv);
-                    this.ue.focus(true);
-                } catch (e) {}
-            } else if (!nv && ov) {
-                try {
-                    this.ue.setContent(nv);
-                } catch (e) {}
-            } else {
-                try {
-                    this.ue.setContent(nv);
-                    this.ue.focus(true);
-                } catch (e) {}
+        value(n, o) {
+            if(n !== this.content_inner) {
+                this.ue.setContent(n);
             };
         }
     },
-    mounted: function () {
-        if(this.readonly) return;
-        this.$nextTick(function () {
-            var config = this.config;
-
-            var dom = this.$refs["_UEditor"]
-            var randomID = '_UEditor-' + Math.floor(Math.random() * 10000);
-            dom.setAttribute('id', randomID)
-
-            this.ue = UE.getEditor(randomID, config);
-
-            var that = this;
-            this.ue.addListener("ready", function () {
-                that.ue.setContent(that.value || ""); // 确保UE加载完成后，放入内容。
-                that.ue.addListener("contentChange", function () {
-                    that.$emit("input", that.ue.getContent());
-                });
-            });
-        })
+    computed: {
+        model: {
+            get() {
+                return this.value;
+            },
+            set(val) {
+                this.content_inner = val;
+                this.$emit("input", val);
+            }
+        },
     },
     methods: {
         getUEContent: function () {
@@ -99,6 +80,30 @@ export default {
                 this.ue.setContent("");
             }
         }
+    },
+    mounted: function () {
+        if(this.readonly) return;
+        this.$nextTick(function () {
+            var config = this.config;
+
+            var dom = this.$refs["_UEditor"];
+            var randomID = '_UEditor-' + Math.floor(Math.random() * 10000);
+            dom.setAttribute('id', randomID);
+
+            this.ue = UE.getEditor(randomID, config);
+
+            var that = this;
+            this.ue.addListener("ready", function () {
+                that.ue.setContent(that.model || ""); // 确保UE加载完成后，放入内容。
+                that.ue.addListener("contentChange", function () {
+                    var htmlContent = that.ue.getContent();
+                    that.model = htmlContent;
+                });
+            });
+        })
+    },
+    beforeDestroy() {
+        this.ue.destroy();
     }
 }
 </script>
