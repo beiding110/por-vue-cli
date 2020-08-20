@@ -6,7 +6,7 @@
             </template>
             <slot>
 
-            </slot>            
+            </slot>
         </el-radio-group>
         <template v-else>
             {{selectedLabel}}
@@ -18,7 +18,7 @@
 export default {
     props: {
         value: {
-            type: [String, Number],
+            // type: [String, Number],
             default: ''
         },
         action: {
