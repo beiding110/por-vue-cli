@@ -31,7 +31,7 @@ export default {
             return this.$store.getters.user;
         },
         dwname() {
-            return this.userInfo.dwname;
+            return this.userInfo.dwname || '游客';
         },
         userHeaderText() {
             return this.dwname.slice(0, 1);
@@ -41,7 +41,9 @@ export default {
         handleCommand(command) {
             var switchObj = {
                 logout: () => {
-                    this.$get(this.getGetters('ageUrl') + '/logout');
+                    this.$get(this.getGetters('ageUrl') + '/logout', () => {
+                        this.goto('/login');
+                    });
                 }
             };
 

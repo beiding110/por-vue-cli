@@ -5,6 +5,7 @@
         <template v-for="item in $store.getters.pc_bread">
             <el-breadcrumb-item 
             :key="item.path"
+            :to="{ path: item.path, query:$route.query }"
             >
                 {{item.title}}
             </el-breadcrumb-item>

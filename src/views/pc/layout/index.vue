@@ -2,6 +2,8 @@
     <div class="layout" :class="{mobile:mobile, 'view-only':viewOnly}">
         <div class="left-nav-cover" v-if="showController" @click="toggleShowController"></div>
         <div class="left-nav" :class="{collapse:collapseController, show:showController}" v-if="!viewOnly">
+            <logo-img :small="collapseController"></logo-img>
+
             <el-menu
             router
             :collapse="collapseController"
@@ -36,9 +38,10 @@
 <script>
 import MyBreadcrumb from './components/breadcrumb'
 import UserInfo from './components/user-info'
+import LogoImg from './components/logo-img'
 
 export default {
-    components: {MyBreadcrumb, UserInfo},
+    components: {MyBreadcrumb, UserInfo, LogoImg},
     data () {
         return {
             collapseController: false,
