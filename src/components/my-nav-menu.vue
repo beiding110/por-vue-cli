@@ -3,17 +3,17 @@
         <template v-for="childItem in list">
 
             <template v-if="!!childItem.children">
-                <el-submenu :index="childItem.id">
+                <el-submenu :index="childItem.id" :key="childItem.id">
                     <template slot="title">
                         <i class="iconfont" v-if="childItem.imgpath" v-html="childItem.imgpath"></i>
-                        <span slot="title">{{ childItem.text }}</span>
+                        <span>{{ childItem.text }}</span>
                     </template>
 
                     <my-nav-menu :list="childItem.children" :props="props"></my-nav-menu>
                 </el-submenu>
             </template>
             <template v-else>
-                <el-menu-item :index="childItem.url">
+                <el-menu-item :index="childItem.url" :key="childItem.url">
                     <i class="iconfont" v-if="childItem.imgpath" v-html="childItem.imgpath"></i>
                     <span>{{ childItem.text }}</span>
                 </el-menu-item>
