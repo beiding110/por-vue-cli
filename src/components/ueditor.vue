@@ -51,7 +51,7 @@ export default {
     },
     watch: {
         value(n, o) {
-            if(n !== this.content_inner) {
+            if(n !== this.content_inner && !this.readonly) {
                 this.ue.setContent(n);
             };
         }
