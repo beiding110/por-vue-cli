@@ -13,7 +13,7 @@
                 </el-submenu>
             </template>
             <template v-else>
-                <el-menu-item :index="childItem.url" :key="childItem.url">
+                <el-menu-item :index="childItem.url" :key="childItem.id">
                     <i class="iconfont" v-if="childItem.imgpath" v-html="childItem.imgpath"></i>
                     <span>{{ childItem.text }}</span>
                 </el-menu-item>

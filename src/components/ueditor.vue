@@ -103,7 +103,7 @@ export default {
         })
     },
     beforeDestroy() {
-        this.ue.destroy();
+        this.ue && this.ue.destroy();
     }
 }
 </script>
