@@ -51,7 +51,7 @@ export default {
     },
     watch: {
         value(n, o) {
-            if(n !== this.content_inner && !this.readonly) {
+            if(n !== this.content_inner && this.ue && n) {
                 this.ue.setContent(n);
             };
         }
@@ -91,6 +91,7 @@ export default {
             dom.setAttribute('id', randomID);
 
             this.ue = UE.getEditor(randomID, config);
+            this.value && this.ue.setContent(this.value);
 
             var that = this;
             this.ue.addListener("ready", function () {
