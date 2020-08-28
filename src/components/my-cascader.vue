@@ -39,7 +39,7 @@ export default {
 				label: 'text'
                 }
             }
-        }, 
+        },
         data: {
             type: Array,
             default: () => []
@@ -69,7 +69,7 @@ export default {
                 this.$get(this.url, data => {
                     this.options = data;
                 });
-            } 
+            }
             if(this.data.length) {
                 this.options = this.data;
             }
@@ -77,8 +77,12 @@ export default {
 		changeHandler() {
 			// console.log(row)
 			this.$nextTick(() => {
-				const selNode = this.$refs.cascader.getCheckedNodes()[0];
-				selNode && this.twoWayHandler(selNode.data);
+                const selNodes = this.$refs.cascader.getCheckedNodes();
+                const selNode = selNodes[0];
+                selNode && this.twoWayHandler(selNode.data);
+
+
+                this.$emit('change', selNodes);
 			})
 		}
 	},
