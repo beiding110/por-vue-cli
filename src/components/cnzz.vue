@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import config from '@config/index'
 export default {
     props: {
         hide: {
@@ -36,7 +37,7 @@ export default {
         setCnzz() {
             var script = document.createElement('script'),
             protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-            script.src = (protocol + 's5.cnzz.com/z_stat.php?id=1275340054&show=pic1');
+            script.src = (protocol + `s5.cnzz.com/z_stat.php?id=${config.cnzz.id}&show=${config.cnzz.show}`);
             script.language = 'javascript';
             document.body.appendChild(script)
         }

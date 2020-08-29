@@ -6,6 +6,10 @@ export default {
     sentry: {
         dsn: 'https://4efc6c77e7e64921966612b3e3cc4355@sentry.io/5171325'
     },
+    cnzz: {
+        id: '1275340054',
+        show: 'pic1'
+    },
     element: {
         //element主题 purple / orange / default
         theme: require('@/css/element-customize.scss')
