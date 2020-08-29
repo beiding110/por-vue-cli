@@ -38,6 +38,18 @@
 
 ## 开发过程
 
+* 拉取项目；
+* 是否使用多项目开发，是则取消`.gitignore`中的注释；
+* 修改`config/index`中代理配置，包含：dev.proxyTable、build.useSentry；
+* 修改`src/config/index`中相关参数（如需要），包含：sentry、cnzz、router等；
+* 判断是否使用同一login页面，并修改`src/views/pc/login`；
+* 修改`src/views/pc/layout/components/user-info`中的退出操作；
+* 根据需要配置`src/views/pc/layout`中导航菜单（如本示例中将菜单项进行配置抽离，实际生产中应该是以接口形式获取菜单）；
+* 如使用多项目开发，则应在此位置提交git，并将该项目作为base项目，禁止管理员外其他成员提交修改；
+* 在以上基础上进行开发；
+
+## 开发命令
+
 ``` bash
 # 初次启动安装依赖
 npm install

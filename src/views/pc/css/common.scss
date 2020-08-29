@@ -48,4 +48,7 @@
 
     .left-nav, .top-nav{display:none !important;}
     .layout .view{left:0 !important; top:0 !important; padding:0 !important;}
+
+    body, html, #app{width:auto !important; height:auto !important; overflow:auto !important;}
+    .layout .view{position:relative !important;}
 }

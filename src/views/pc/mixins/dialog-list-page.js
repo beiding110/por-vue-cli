@@ -2,15 +2,32 @@
 
 export default {
     data: () => ({
-        dialogVisible: false
+        dialogVisible: false,
+
+        form: {}
     }),
+    watch: {
+        dialogVisible(n) {
+            if(!n){
+                try{
+                    this.reloadHandler();
+                } catch(e) {};
+            };
+        }
+    },
     methods: {
+        dialogShow() {
+            this.dialogVisible = true;
+        },
+        editHandler(row) {
+            this.form = clone(row);
+            this.dialogVisible = true;
+        },
         cancleHandler() {
             this.$emit('cancle');
         },
-        formCancleHandler() {
+        dialogClose() {
             this.dialogVisible = false;
-            this.reloadHandler();
         }
     }
 }

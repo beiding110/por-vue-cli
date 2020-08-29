@@ -18,8 +18,8 @@
 <script>
 export default {
     data: () => ({
-        loginname: '13473768822',
-        pwd: '123456'
+        loginname: '',
+        pwd: ''
     }),
     methods: {
         /*登录函数*/

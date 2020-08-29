@@ -39,7 +39,9 @@ module.exports = {
             '@mixins': resolve('src/mixins'),
             '@router': resolve('src/router'),
             '@store': resolve('src/store'),
-            '@views': resolve('src/views')
+            '@views': resolve('src/views'),
+            '@pc': resolve('src/views/pc'),
+            '@mobile': resolve('src/views/mobile'),
         }
     },
     module: {

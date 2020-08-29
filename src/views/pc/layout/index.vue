@@ -40,13 +40,15 @@ import MyBreadcrumb from './components/breadcrumb'
 import UserInfo from './components/user-info'
 import LogoImg from './components/logo-img'
 
+import NAV_DATA from '@config/nav'
+
 export default {
     components: {MyBreadcrumb, UserInfo, LogoImg},
     data () {
         return {
             collapseController: false,
             showController: false,
-            menuList: [],
+            menuList: NAV_DATA,
             mobile: false,
             viewOnly: false
         }
@@ -54,7 +56,7 @@ export default {
     methods: {
         queryMenu() {
             this.$get(this.getGetters('sysUrl') + '/menu/list', function (data) {
-                this.menuList = data;
+                // this.menuList = data;
             })
         },
         toggleCollapse() {

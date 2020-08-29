@@ -9,7 +9,7 @@
                 <i class="el-icon-caret-bottom"></i>
             </span>
         </div>
-        
+
         <el-dropdown-menu slot="dropdown">
             <el-dropdown-item icon="el-icon-switch-button" command="logout">退出登录</el-dropdown-item>
         </el-dropdown-menu>
@@ -19,7 +19,7 @@
 <script>
 export default {
     props: {
-        
+
     },
     data () {
         return {
@@ -41,7 +41,7 @@ export default {
         handleCommand(command) {
             var switchObj = {
                 logout: () => {
-                    this.$get(this.getGetters('ageUrl') + '/logout', () => {
+                    this.$get(this.getGetters('sysUrl') + '/logout', () => {
                         this.goto('/login');
                     });
                 }

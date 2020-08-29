@@ -32,11 +32,15 @@ export default {
         }
     },
     data: () => ({
-        
+
     }),
     computed: {
         btnList() {
             var that = this.$parent || this;
+
+            var row = this.row,
+                model = this.model;
+
             return this.config.filter(item => {
                 return item.show(this.row, this.model);
             }).map(item => ({
@@ -45,7 +49,7 @@ export default {
                 tag: item.tag,
                 click() {
                     if(item.click) {
-                        item.click.call(that, that.row, that.model)
+                        item.click.call(that, row, model);
                     };
                 }
             }));

@@ -4,7 +4,7 @@ export default{
         Vue.component('my-tag', function(){return import(/*webpackChunkName: 'coms-sys'*/ './my-tag')});
         Vue.component('btn-builder', function(){return import(/*webpackChunkName: 'coms-sys'*/ './btn-builder')});
 
-        Vue.component('zh-action-row', function(){return import(/*webpackChunkName: 'coms-sys'*/ './zh-action-row')});
+        Vue.component('action-row', function(){return import(/*webpackChunkName: 'coms-sys'*/ './action-row')});
         Vue.component('info-tip', function(){return import(/*webpackChunkName: 'coms-sys'*/ './info-tip')});
     }
 }

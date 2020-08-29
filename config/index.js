@@ -12,7 +12,7 @@ module.exports = {
         assetsPublicPath: '/',
         proxyTable: {
             '/': {
-                target: 'http://124.239.148.25:12000',
+                target: 'http://www.hgchzx.com',
                 changeOrigin:true,
                 pathRewrite: {
                     '^/': '/'
@@ -74,6 +74,6 @@ module.exports = {
         // Set to `true` or `false` to always turn it on or off
         bundleAnalyzerReport: process.env.npm_config_report,
 
-        useSentry: true
+        useSentry: false
     }
 }

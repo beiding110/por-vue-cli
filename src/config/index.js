@@ -3,9 +3,10 @@ const path = require('path')
 export default {
     //ajax类型axios或jquery，用法相同
     ajax: 'jquery',
-    sentry: {
-        dsn: 'https://4efc6c77e7e64921966612b3e3cc4355@sentry.io/5171325'
-    },
+    sentry: false,
+    // {
+    //     dsn: 'https://4efc6c77e7e64921966612b3e3cc4355@sentry.io/5171325'
+    // },
     cnzz: {
         id: '1275340054',
         show: 'pic1'
