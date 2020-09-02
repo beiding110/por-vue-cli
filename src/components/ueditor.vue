@@ -52,7 +52,9 @@ export default {
     watch: {
         value(n, o) {
             if(n !== this.content_inner && this.ue && n) {
-                this.ue.setContent(n);
+                try{
+                    this.ue.setContent(n);
+                } catch(e) {}
             };
         }
     },
