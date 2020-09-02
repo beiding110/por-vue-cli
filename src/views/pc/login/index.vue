@@ -24,45 +24,10 @@ export default {
     methods: {
         /*登录函数*/
         login: function () {
-            console.log(this.$store)
-            if (this.loginname == '' || this.loginname == undefined) {
-                ShowMsg('请输入账号', 'error')
-            } else if (this.pwd == '' || this.pwd == undefined) {
-                ShowMsg('请输入密码', 'error')
-            } else {
-                this.$post('/pms/login', {
-                    loginname: this.loginname,
-                    pwd: this.pwd
-                }, function (data, res) {
-                    data.user.avatar = data.avatar || '';
-                    data.user.maxnum = data.maxnum || '';
-                    data.user.biglogo = data.biglogo || '';
-                    data.user.smalllogo = data.smalllogo || '';
-
-                    this.$store.commit('setUser', data.user);
-
-                    this.goto('/pc/teamwork/project/list')
-                });
-
-                // this.$ajax({
-                //     type: 'post',
-                //     url: '/pms/login',
-                //     data: {
-                //         loginname: this.loginname,
-                //         pwd: this.pwd
-                //     },
-                //     callback: (data, res) => {
-                //         data.user.avatar = data.avatar || '';
-                //         data.user.maxnum = data.maxnum || '';
-                //         data.user.biglogo = data.biglogo || '';
-                //         data.user.smalllogo = data.smalllogo || '';
-                //
-                //         this.$store.commit('setUser', data.user);
-                //
-                //         this.goto('/pc/teamwork/project/list')
-                //     }
-                // })
-            }
+            this.$store.dispatch('login', {
+                loginname: this.loginname,
+                pwd: this.pwd
+            });
         },
 
         getDicitonary() {

@@ -11,7 +11,13 @@
         </div>
 
         <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item icon="el-icon-switch-button" command="logout">退出登录</el-dropdown-item>
+            <el-dropdown-item
+            v-for="(item, index) in navDeopDownList"
+            :key="index"
+            :icon="item.icon"
+            :command="item.command">
+                {{item.text}}
+            </el-dropdown-item>
         </el-dropdown-menu>
     </el-dropdown>
 </template>
@@ -35,19 +41,14 @@ export default {
         },
         userHeaderText() {
             return this.dwname.slice(0, 1);
+        },
+        navDeopDownList() {
+            return this.getGetters(`${this.getGetters('system').type}_navDropDown`)
         }
     },
     methods: {
         handleCommand(command) {
-            var switchObj = {
-                logout: () => {
-                    this.$get(this.getGetters('sysUrl') + '/logout', () => {
-                        this.goto('/login');
-                    });
-                }
-            };
-
-            switchObj[command]();
+            command && command();
         }
     },
     mounted: function() {
