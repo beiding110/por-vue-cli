@@ -263,7 +263,7 @@ $tableBorderColor: #E8E8E8;
     /deep/ .el-form-item:not(.btn-row){width:50%; position:relative;
         .el-form-item__label{height:100%; line-height:normal; border-right:1px solid $tableBorderColor; box-sizing:border-box; background:#F9FBFE; display:flex; align-items:center; justify-content:flex-end;}
         .el-form-item__content{padding:5px; position:relative; min-height:2em;
-            .el-form-item__error{top:auto; bottom:-.5em; left:5px;}
+            .el-form-item__error{top:auto; bottom:0; left:5px;}
         }
     }
     .btn-row{width:100%; padding:1em 0;}
