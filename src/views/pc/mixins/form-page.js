@@ -2,7 +2,7 @@
 
 export default {
     computed: {
-        // 默认获取详情参数
+        // 默认获取地址栏参数值
         detailExtra() {
             return this.getQuery();
         }

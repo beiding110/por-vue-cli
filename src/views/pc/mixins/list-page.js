@@ -21,12 +21,15 @@ function argComputeQuery() {
 
 export default {
     data: () => ({
+        //表格及分页绑定的列表数据
         tableData: [],
+        //搜索绑定的对象数据
         pgData: {
 
         },
-
+        //自动计算的表格高度
         tableHeight: 0,
+        //表格多选结果数组
         multipleSelect: []
     }),
     computed: {
@@ -47,6 +50,10 @@ export default {
                 query: urlQuery
             });
         },
+        /**
+         * 进入编辑页面，默认detail
+         * 参数为进入detail时携带的地址栏参数
+         */
         detailHandler() {
             var args = [];
             args.push.apply(args, arguments);
@@ -123,6 +130,9 @@ export default {
                 }
             } ())
         },
+        /**
+         * 取消方法
+         */
         cancleHandler() {
             this.$emit('cancle');
         },
