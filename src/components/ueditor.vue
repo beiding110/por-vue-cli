@@ -68,6 +68,13 @@ export default {
                 this.$emit("input", val);
             }
         },
+        ueconfig() {
+            var url = '/teamwork';
+            return [
+                `${url}/uedtior/ueditor.config.js`,
+                `${url}/uedtior/ueditor.all.js`,
+            ];
+        }
     },
     methods: {
         getUEContent: function () {
@@ -81,11 +88,42 @@ export default {
             if (this.ue.hasContents()) {
                 this.ue.setContent("");
             }
+        },
+        loadFile(cb) {
+            if(this.ueconfig) {
+                var scripts = document.querySelectorAll('script');
+                var scriptArr = [];
+                scriptArr.push.apply(scriptArr, scripts);
+                if(scriptArr.some(item => item.src.indexOf(this.ueconfig[0]) > -1)) {
+                    cb && cb();
+                    return;
+                };
+
+                var scriptConfig = document.createElement('script');
+                scriptConfig.src = this.ueconfig[0];
+                scriptConfig.charset = 'utf-8';
+                scriptConfig.type = 'text/javascript';
+
+                var scriptAll = document.createElement('script');
+                scriptAll.src = this.ueconfig[1];
+                scriptAll.charset = 'utf-8';
+                scriptAll.type = 'text/javascript';
+
+                scriptConfig.onload = function() {
+                     document.body.appendChild(scriptAll);
+                };
+                scriptAll.onload = function() {
+                    cb && cb();
+                };
+
+                document.body.appendChild(scriptConfig);
+            };
         }
     },
     mounted: function () {
         if(this.readonly) return;
-        this.$nextTick(function () {
+
+        this.loadFile(() => {
             var config = this.config;
 
             var dom = this.$refs["_UEditor"];
@@ -93,17 +131,17 @@ export default {
             dom.setAttribute('id', randomID);
 
             this.ue = UE.getEditor(randomID, config);
-            this.value && this.ue.setContent(this.value);
 
             var that = this;
             this.ue.addListener("ready", function () {
                 that.ue.setContent(that.model || ""); // 确保UE加载完成后，放入内容。
+
                 that.ue.addListener("contentChange", function () {
                     var htmlContent = that.ue.getContent();
                     that.model = htmlContent;
                 });
             });
-        })
+        });
     },
     beforeDestroy() {
         this.ue && this.ue.destroy();
