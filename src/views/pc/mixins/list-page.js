@@ -143,6 +143,12 @@ export default {
             this.$refs.page.reload();
         },
         /**
+         * 使用pagination组件自动从第一页加载
+         */
+        searchHandler() {
+            this.$refs.page.queryData();
+        },
+        /**
          * 设置table高度
          */
         setTableHeight() {
