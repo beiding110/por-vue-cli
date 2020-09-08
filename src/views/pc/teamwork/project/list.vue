@@ -1,6 +1,6 @@
 <template>
     <el-card>
-        <my-search v-model="pgData">
+        <my-search v-model="pgData" @search="searchHandler">
             <template slot="btn">
                 <my-btn type="new" @click="addHandler">新增</my-btn>
 
