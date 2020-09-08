@@ -37,6 +37,10 @@ export default {
             type: Function,
             default: function(){}
         },
+        beforeQuery: {
+            type: Function,
+            default: function(){}
+        },
         afterQuery: {
             type: Function,
             default: function(){}
@@ -89,6 +93,8 @@ export default {
 
                     mixin(this.defaultSearch, searchData);
 
+                    !!this.beforeQuery && this.beforeQuery(searchData);
+
                     this.$ajax({
                         url: that.action,
                         data: searchData,
@@ -97,7 +103,7 @@ export default {
                                 this.queryData(--this.currentPage);
                                 return;
                             };
-                            
+
                             !!this.afterQuery && this.afterQuery(data.rows, data);
                             that.pageData = data.rows;
                             that.$nextTick(function() {
