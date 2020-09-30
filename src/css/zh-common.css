@@ -2,6 +2,7 @@
 
 * {list-style:none; font-family: '微软雅黑'; margin:0; padding:0;}
 html, body, #app{width:100%; height:100%;}
+html, body{overflow:hidden;}
 body{background-size:cover;}
 
 iframe {border:none;box-shadow:none;}
