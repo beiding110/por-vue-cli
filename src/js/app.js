@@ -454,7 +454,11 @@ import storage from './storage'
             hashObj[item.split("=")[0]] = item.split("=")[1];
         });
         if (!!key)
-        return /%u/.test(hashObj[key]) ? unescape(hashObj[key]) : hashObj[key];
+            return /%E/.test(hashObj[key])
+                ? decodeURI(hashObj[key])
+                : /%u/.test(hashObj[key])
+                    ? unescape(hashObj[key])
+                    : hashObj[key];
         else
         return hashObj;
     }
@@ -480,7 +484,7 @@ import storage from './storage'
                 } else if (typeof obj[key] == 'object' && obj[key] != null) {
                     res += (owner.toSearch(obj[key], true) + '&');
                 } else {
-                    var item = /[\u3220-\uFA29]/.test(obj[key]) ? escape(obj[key]) : obj[key];
+                    var item = /[\u3220-\uFA29]/.test(obj[key]) ? encodeURI(obj[key]) : obj[key];
                     res += (key + '=' + (item || '') + '&');
                 }
 
