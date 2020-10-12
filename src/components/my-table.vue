@@ -128,11 +128,17 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="scss">
 .my__table{width:100%;
     /deep/ {
         .el-button--text{text-align:left;
             span{word-break:break-all; white-space:normal; }
+        }
+        .el-table__header{
+            min-width: 100% !important;
+        }
+        .el-table__body{
+            min-width: 100% !important;
         }
     }
 }
