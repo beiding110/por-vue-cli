@@ -1,8 +1,10 @@
 <template>
     <iframe
-    ref="frame"
-    class="pdf-container"
-    :src="'./static/plugin/pdfjs/index.html?file=' + src + ts"></iframe>
+        ref="frame"
+        class="pdf-container"
+        src="./static/plugin/pdfjs/index.html?file="
+        :data-src="innerSrc"
+    ></iframe>
 </template>
 
 <script>
@@ -15,7 +17,7 @@ export default {
     },
     data () {
         return {
-
+            innerSrc: ''
         }
     },
     computed: {
@@ -25,17 +27,31 @@ export default {
     },
     watch: {
         src(n, o) {
-            if(n != o && !n) {
+            if(n != o) {
+                if(!n) {
+                    this.innerSrc = '';
+                    this.reload();
+                } else {
+                    this.assign();
+                };
+            } else {
                 this.reload();
             }
         }
     },
     methods: {
-        reload() {
-            // this.$refs.frame.contentWindow.location.reload();
-            // debugger
-            //
+        assign() {
+            if(!this.src) return;
+
             var pdfWin = this.$refs.frame.contentWindow;
+
+            if(this.innerSrc !== this.src) {
+                pdfWin.location.replace(`./static/plugin/pdfjs/index.html?file=${this.src}${this.ts}`);
+            }
+        },
+        reload() {
+            var pdfWin = this.$refs.frame.contentWindow;
+
             if (pdfWin.document.readyState === 'complete') {
                 this.$refs.frame.contentWindow.webViewerLoad();
             } else {
@@ -44,7 +60,7 @@ export default {
         }
     },
     mounted: function() {
-
+        this.assign();
     }
 }
 </script>
