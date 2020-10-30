@@ -2,8 +2,7 @@
     <iframe
     ref="frame"
     class="iframe-container"
-    :key="$route.fullPath"
-    :src="src"></iframe>
+    :data-src="src"></iframe>
 </template>
 
 <script>
@@ -16,27 +15,36 @@ export default {
     },
     data () {
         return {
-
+            innerSrc: ''
         }
     },
     watch: {
         src(n, o) {
-            // if(n != o) {
-            //     try {
-            //         this.$refs.frame.contentWindow.Init()
-            //     } catch(e) {
-            //         this.$refs.frame.contentWindow.onload = function(e) {
-            //             e.currentTarget.Init();
-            //         }
-            //     }
-            // }
+            if(n != o) {
+                this.innerSrc = '';
+                this.assign();
+            } else {
+                this.reload();
+            };
         }
     },
     methods: {
+        assign() {
+            if(!this.src) return;
 
+            var frameWin = this.$refs.frame.contentWindow;
+
+            if(this.innerSrc !== this.src) {
+                frameWin.location.replace(this.src);
+            };
+        },
+        reload() {
+            var frameWin = this.$refs.frame.contentWindow;
+            window.location.reload();
+        }
     },
     mounted: function() {
-
+        this.assign();
     }
 }
 </script>
