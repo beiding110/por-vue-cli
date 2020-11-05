@@ -19,7 +19,9 @@
 
         <my-table
 		:data="tableData"
-		:height="tableHeight">
+		:height="tableHeight"
+        v-loading="loadingController"
+        >
 			<el-table-column prop="proname" label="项目名称" sortable min-width="180" fixed="left" key="proname">
 				<template slot-scope="scope">
                     <el-button type="text" @click="detailHandler({rowguid:scope.row.procode})">{{scope.row.proname}}</el-button>
@@ -61,7 +63,13 @@
 		</my-table>
 
 		<!-- 分页 -->
-        <my-pagination v-model="tableData" :action="$store.getters.twUrl + '/xmgl/project/powerpagelist'" :search="pgData" ref="page"></my-pagination>
+        <my-pagination
+            v-model="tableData"
+            :action="$store.getters.twUrl + '/xmgl/project/powerpagelist'"
+            :search="pgData"
+            ref="page"
+            :loading.sync="loadingController"
+        ></my-pagination>
     </el-card>
 </template>
 
@@ -83,7 +91,9 @@ export default {
 				onlyshowhistory: false,
 			},
 
-            btnConfig: BTN_CONFIG
+            btnConfig: BTN_CONFIG,
+
+            loadingController: false
         }
     },
     computed: {
