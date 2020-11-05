@@ -52,6 +52,10 @@ export default {
         lazy: {
             type: Boolean,
             default: false
+        },
+        loading: {
+            type: Boolean,
+            default: false
         }
     },
     data () {
@@ -94,6 +98,7 @@ export default {
                     mixin(this.defaultSearch, searchData);
 
                     !!this.beforeQuery && this.beforeQuery(searchData);
+                    this.$emit('update:loading', true);
 
                     this.$ajax({
                         url: that.action,
@@ -105,6 +110,7 @@ export default {
                             };
 
                             !!this.afterQuery && this.afterQuery(data.rows, data);
+                            that.$emit('update:loading', false);
                             that.pageData = data.rows;
                             that.$nextTick(function() {
                                 that.total = data.total;
