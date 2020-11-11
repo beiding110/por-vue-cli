@@ -10,6 +10,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const PrerenderSPAPlugin = require('prerender-spa-plugin');
 
 const env = require('../config/prod.env')
 
@@ -118,7 +119,14 @@ var baseConfig = {
                 ignore: ['.*']
             }
         ]),
-        ...staticFoldersPlugin
+        ...staticFoldersPlugin,
+        new PrerenderSPAPlugin({
+            staticDir: config.build.assetsRoot,
+            routes: ['/web/index'],
+            renderer: new PrerenderSPAPlugin.PuppeteerRenderer({
+                renderAfterDocumentEvent: 'render-event'
+            })
+        })
     ]
 };
 

@@ -33,5 +33,8 @@ new Vue({
     router,
     store,
     components: { App },
-    template: '<App/>'
+    template: '<App/>',
+    mounted() {
+        document.dispatchEvent(new Event('render-event'))
+    }
 })

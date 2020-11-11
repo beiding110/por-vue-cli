@@ -10,6 +10,7 @@ var routerArr = [];
 routerArr.push.apply(routerArr, _.init());
 
 var router = new Router({
+    mode: 'history',
     routes: routerArr
 });
 

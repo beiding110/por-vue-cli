@@ -17,6 +17,7 @@
         "jquery": "^3.2.1",
         "mint-ui": "^2.2.13",
         "nprogress": "^0.2.0",
+        "prerender-spa-plugin": "^3.4.0",
         "qs": "^6.9.4",
         "raven-js": "^3.27.2",
         "vue": "^2.5.2",
