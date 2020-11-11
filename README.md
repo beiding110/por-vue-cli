@@ -2,7 +2,7 @@
 
 > the new cli with node 10
 
-集成了appjs、常用组件库、element-ui/mint-ui、jquery、babel、sentry等；
+集成了appjs、常用组件库、element-ui/mint-ui、jquery、babel、sentry、vue-mate-info等；
 
 常用配置修改；
 

@@ -28,3 +28,6 @@ if(process.env.NODE_ENV !== 'development' ){
         };
     };
 };
+
+const MetaInfo = require('vue-meta-info');
+Vue.use(MetaInfo);
