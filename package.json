@@ -20,6 +20,7 @@
         "qs": "^6.9.4",
         "raven-js": "^3.27.2",
         "vue": "^2.5.2",
+        "vue-meta-info": "^0.1.7",
         "vue-router": "^3.0.1",
         "vuex": "^3.0.1"
     },
@@ -41,7 +42,7 @@
         "friendly-errors-webpack-plugin": "^1.6.1",
         "html-webpack-plugin": "^2.30.1",
         "node-notifier": "^5.1.2",
-        "node-sass": "^4.11.0",
+        "node-sass": "^4.14.1",
         "optimize-css-assets-webpack-plugin": "^3.2.0",
         "ora": "^1.2.0",
         "portfinder": "^1.0.13",
@@ -49,7 +50,7 @@
         "postcss-loader": "^2.0.8",
         "postcss-url": "^7.2.1",
         "rimraf": "^2.6.0",
-        "sass-loader": "^7.1.0",
+        "sass-loader": "^7.3.1",
         "semver": "^5.3.0",
         "shelljs": "^0.7.6",
         "uglifyjs-webpack-plugin": "^1.1.1",
@@ -60,7 +61,8 @@
         "webpack": "^3.6.0",
         "webpack-bundle-analyzer": "^2.9.0",
         "webpack-dev-server": "^2.9.1",
-        "webpack-merge": "^4.1.0"
+        "webpack-merge": "^4.1.0",
+        "windows-build-tools": "^5.2.2"
     },
     "engines": {
         "node": ">= 6.0.0",
