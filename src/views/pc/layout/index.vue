@@ -7,12 +7,12 @@
             <el-menu
             router
             :collapse="collapseController"
-            background-color="#304156"
-            text-color="#BFCBD9"
-            active-text-color="#ffd04b"
+            :background-color="colors.navBgColor"
+            :text-color="colors.navTextColor"
+            :active-text-color="colors.navTextActiveColor"
             default-active="2">
-            <my-nav-menu :list="menuList"></my-nav-menu>
-        </el-menu>
+                <my-nav-menu :list="menuList"></my-nav-menu>
+            </el-menu>
     </div>
     <div class="top-nav" :class="{collapse:collapseController}" v-if="!viewOnly">
         <div class="btn-coll btn_top-nav" @click="toggleCollapse" v-if="!mobile">
@@ -40,6 +40,8 @@ import MyBreadcrumb from './components/breadcrumb'
 import UserInfo from './components/user-info'
 import LogoImg from './components/logo-img'
 
+import lessVars from '@/css/var.scss'
+
 import NAV_DATA from '@config/nav'
 
 export default {
@@ -50,7 +52,9 @@ export default {
             showController: false,
             menuList: NAV_DATA,
             mobile: false,
-            viewOnly: false
+            viewOnly: false,
+
+            colors: lessVars
         }
     },
     methods: {
@@ -104,11 +108,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+@import '@css/var.scss';
+
 $leftWidth: 200px;
 $colLeftWidth: 64px;
 
 .layout{position:relative; width:100%; height:100%;
-    .left-nav{width:$leftWidth; height:100%; position:absolute; left:0; top:0; background:#304156; transition:all .3s; overflow-x:hidden;
+    .left-nav{width:$leftWidth; height:100%; position:absolute; left:0; top:0; background:$navBgColor; transition:all .3s; overflow-x:hidden;
         &.collapse{width:$colLeftWidth;
             /deep/ .el-menu .infinite-sub-menu .el-menu-item span{display:none;}
         }

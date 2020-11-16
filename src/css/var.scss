@@ -22,3 +22,40 @@ $dangerColor: #F56C6C;
 $infoColor: #909399;
     $infoColor9: mix($whiteColor, $infoColor, 80%);
     $infoColor8: mix($whiteColor, $infoColor, 90%);
+
+$navBgColor: #304156;
+    $navTextColor: #BFCBD9;
+    $navTextActiveColor: #ffd04b;
+
+:export {
+    primaryColor: $primaryColor;
+    primaryColor9: $primaryColor9;
+    primaryColor8: $primaryColor8;
+    primaryColor7: $primaryColor7;
+    primaryColor6: $primaryColor6;
+    primaryColor5: $primaryColor5;
+    primaryColor4: $primaryColor4;
+    primaryColor3: $primaryColor3;
+    primaryColor2: $primaryColor2;
+    primaryColor1: $primaryColor1;
+
+    successColor: $successColor;
+    successColor9: $successColor9;
+    successColor8: $successColor8;
+
+    warningColor: $warningColor;
+    warningColor9: $warningColor9;
+    warningColor8: $warningColor8;
+
+    dangerColor: $dangerColor;
+    dangerColor9: $dangerColor9;
+    dangerColor8: $dangerColor8;
+
+    infoColor: $infoColor;
+    infoColor9: $infoColor9;
+    infoColor8: $infoColor8;
+
+    navBgColor: $navBgColor;
+    navTextColor: $navTextColor;
+    navTextActiveColor: $navTextActiveColor;
+}
