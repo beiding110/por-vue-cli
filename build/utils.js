@@ -160,8 +160,6 @@ exports.buildStaticPlugin = (url) => {
       }
     ]));
 
-    console.log(path.resolve(__dirname, folder), to_path)
-
     return arr;
   }, []);
 

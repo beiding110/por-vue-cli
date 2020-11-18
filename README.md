@@ -1,6 +1,6 @@
 # por-vue-cli
 
-> the new cli with node 10
+> the new cli with node 10，vue-cli2，webpack2
 
 集成了appjs、常用组件库、element-ui/mint-ui、jquery、babel、sentry、vue-mate-info等；
 
