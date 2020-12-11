@@ -10,7 +10,7 @@ export default function(router) {
 
         //设置面包屑
         var title = to.meta.title;
-        document.title = `${title ? (title + '·') : ''}${CONFIG.router['title']}`;
+        document.title = `${title ? (title + '·') : ''}${CONFIG.router.pc['title']}`;
         store.commit('setBread', to.meta.bread || []);
 
         //设置tag导航
