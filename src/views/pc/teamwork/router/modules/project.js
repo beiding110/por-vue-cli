@@ -19,6 +19,7 @@ export default {
             component: () => import(/*webpackChunkName: 'pc-tw-project'*/ '@views/pc/teamwork/project/list'),
             meta: {
                 title: '项目列表',
+                tagNav: true,
                 bread: [
                     ...B_1
                 ]

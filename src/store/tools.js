@@ -14,7 +14,12 @@ function mixin(obj, target, state) {
 // 自动生成getters时，不增加model前缀的目录
 const FILES_IN_MODULES = require.context('./modules', false, /\.js$/);
 const PRE_NAME_EXCEPT = FILES_IN_MODULES.keys().reduce((modules, modulePath) => {
-    const FILE_NAME = modulePath.slice(2, -3);
+    var FILE_NAME = modulePath.slice(2, -3);
+
+    FILE_NAME = FILE_NAME.replace(/^\-/, '').replace(/\-(\w)(\w+)/g, function(a, b, c){
+        return b.toUpperCase() + c.toLowerCase();
+    });
+
     modules.push(FILE_NAME);
     return modules;
 }, []);
