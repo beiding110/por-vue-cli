@@ -69,11 +69,17 @@ npm run build --report
 
 ## 整体样式修改
 
-### 登录页面
+### 通用修改
 
 `logo` src/assets/logo.png
 
-`背景图` 对应login模块的images文件夹中
+`.ico` public/favicon.ico
+
+`title` src/config/index.js
+
+`其他样式重写及覆盖` src/css/common.scss
+
+`组件库级别修改（如my-btn）` 修改对应组件文件即可（如src/components-sys/my-btn.vue）
 
 ### 系统面板
 
@@ -83,10 +89,4 @@ npm run build --report
 
 `系统主题色` src/css/var.scss
 
-### 其他
-
-`.ico` static/favicon.ico
-
-`title` src/config/index.js
-
-`其他样式重写及覆盖` src/css/common.scss
+`面板主题` src/views/pc/layout/index.vue，在style标签中选择引用`common.scss`或`pop.scss`
