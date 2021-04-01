@@ -21,7 +21,7 @@ import '@/js/preset.js'
 //图标
 import '@/css/iconfont.css'
 //清除样式
-import '@/css/zh-common.css'
+import '@/css/zh-common.scss'
 //项目全局样式
 import '@/css/common.scss'
 
