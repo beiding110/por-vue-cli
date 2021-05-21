@@ -1,4 +1,4 @@
-# por-vue-cli
+# por-vue-cli ⚠️停止维护，请使用 [por-vue-cli4](https://github.com/beiding110/por-vue-cli4)
 
 > the new cli with node 10，vue-cli2，webpack2
 
